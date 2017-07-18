@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background"
+        android:background="@android:color/holo_blue_light"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -29,6 +29,7 @@
                 android:fontFamily="serif"
                 android:gravity="center"
                 android:text="INCOMING"
+                android:textColor="@color/cardview_light_background"
                 android:textStyle="bold" />
 
             <ImageView
@@ -43,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="469"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -61,6 +63,7 @@
                 android:fontFamily="serif"
                 android:gravity="center"
                 android:text="OUTGOING"
+                android:textColor="@color/cardview_light_background"
                 android:textStyle="bold" />
 
             <ImageView
@@ -75,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="587"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -93,6 +97,7 @@
                 android:fontFamily="serif"
                 android:gravity="center"
                 android:text="MISSING"
+                android:textColor="@color/cardview_light_background"
                 android:textStyle="bold" />
 
             <ImageView
@@ -107,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="69"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -125,6 +131,7 @@
                 android:fontFamily="serif"
                 android:gravity="center"
                 android:text="REJECTED"
+                android:textColor="@color/cardview_light_background"
                 android:textStyle="bold" />
 
             <ImageView
@@ -139,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="58"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -290,6 +298,15 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="#2196f3" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+    </android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

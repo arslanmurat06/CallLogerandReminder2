@@ -2,6 +2,7 @@ package com.marstech.app.calllogerandreminder.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -30,13 +31,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     ArrayList<CalLog> mDataList;
     LayoutInflater layoutInflater;
     Context context;
+    String flag="";
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
 
-    public MyAdapter (Context context,ArrayList<CalLog> data) {
+    public MyAdapter (Context context,ArrayList<CalLog> data,String flag) {
 
         layoutInflater=LayoutInflater.from(context);
         this.mDataList=data;
         this.context=context;
+        this.flag=flag;
 
     }
 
@@ -58,6 +61,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         final CalLog tiklaninanKayit=mDataList.get(position);
         holder.setData (tiklaninanKayit,position);
 
+        if(!flag.equals("sts")) {
+
         holder.rootCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +71,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
               Intent i = new Intent(v.getContext(), Statistics.class);
                 i.putExtra("isim",tiklaninanKayit.getCagriIsim()) ;
                 i.putExtra("numara",tiklaninanKayit.getCagriNumara());
+                i.putExtra("tipi",tiklaninanKayit.getCagriTipi());
+
                 v.getContext().startActivity(i);
 
 
             }
-        });
+        });}
 
 
     }
@@ -100,9 +107,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             cagriSaat=(TextView)itemView.findViewById(R.id.cagriSaat);
             cagriSure=(TextView)itemView.findViewById(R.id.cagriSure);
 
+
             imgCagriTipi=(ImageView) itemView.findViewById(R.id.imgCagriTipi);
             imgKisiResim=(ImageView) itemView.findViewById(R.id.imgKisiResim);
             rootCardView=(CardView) itemView.findViewById(R.id.rootCardView);
+
+
 
 
 
@@ -141,14 +151,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
 
-          if(tiklaninanKayit.getCagriTipi()=="MISSING")
+          if(tiklaninanKayit.getCagriTipi().equals("MISSED"))
 
           {
               this.imgCagriTipi.setImageResource(R.mipmap.gelen_cagri);
               imgCagriTipi.setColorFilter(ContextCompat.getColor(context,R.color.missed));
           }
 
-             else if(tiklaninanKayit.getCagriTipi()=="OUTGOING")
+             else if(tiklaninanKayit.getCagriTipi().equals("OUTGOING"))
 
             {
 
@@ -157,7 +167,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             }
 
-                    else if (tiklaninanKayit.getCagriTipi()=="INCOMING")
+                    else if (tiklaninanKayit.getCagriTipi().equals("INCOMING"))
                         {
                             this.imgCagriTipi.setImageResource(R.mipmap.gelen_cagri);
 

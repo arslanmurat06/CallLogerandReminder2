@@ -183,13 +183,16 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="#2196f3" />
+            android:background="#2196f3"
+            android:gravity="center"
+            android:paddingRight="5dp" />
 
         <TextView
             android:id="@+id/InDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="7h 16m 18s"
             android:textSize="18sp" />
 
@@ -215,13 +218,16 @@
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
-            android:background="#2196f3" />
+            android:background="#2196f3"
+            android:gravity="center"
+            android:paddingRight="5dp" />
 
         <TextView
             android:id="@+id/OutDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="7h 16m 18s"
             android:textSize="18sp" />
 
@@ -289,13 +295,6 @@
         android:layout_marginRight="10dp"
         android:background="#2196f3" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewDetails"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
 
-    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

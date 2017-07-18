@@ -42,22 +42,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DBManager(this);
         CheckUserPermsions();//danger pernissions
+        dbManager = new DBManager(this);
         setContentView(R.layout.activity_main);
-
         recyclerView=(RecyclerView) findViewById(R.id.recyclerView);
 
 
 
         if(izin) {
-            mDataList = getCallDetails(this);
-            myAdapter = new MyAdapter(this, mDataList);
+            getCallDetails(this);
+            mDataList = dbManager.loadData(null);
+            myAdapter = new MyAdapter(this, mDataList,"");
             recyclerView.setAdapter(myAdapter);
-
             LinearLayoutManager mLinearLayoutManagert = new LinearLayoutManager(this);
             mLinearLayoutManagert.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(mLinearLayoutManagert);
+
 
 
         }
@@ -66,18 +66,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public  ArrayList<CalLog> getCallDetails(Context context) {
+    public  void getCallDetails(Context context) {
         StringBuffer stringBuffer = new StringBuffer();
         Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI,
                 null, null, null, CallLog.Calls.DATE + " DESC");
-        int isim1=cursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
+        int isim=cursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
         int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
         int type = cursor.getColumnIndex(CallLog.Calls.TYPE);
         int date = cursor.getColumnIndex(CallLog.Calls.DATE);
         int duration = cursor.getColumnIndex(CallLog.Calls.DURATION);
         while (cursor.moveToNext()) {
 
-            String cagriIsım=cursor.getString(isim1);
+            String cagriIsım=cursor.getString(isim);
             String cagriNumara = cursor.getString(number);
             String cagriTipi = cursor.getString(type);
             String cagriTarih = cursor.getString(date);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            CalLog cagriKaydi= new CalLog();
+
 
             if(cagriIsım==null)
 
@@ -112,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 cagriIsım="İsimsiz";
 
             }
-
+            /*
+             CalLog cagriKaydi= new CalLog();
             cagriKaydi.setCagriIsim(cagriIsım);
             cagriKaydi.setCagriNumara(cagriNumara);
             cagriKaydi.setCagriSure(cagriSuresi);
@@ -124,7 +125,10 @@ public class MainActivity extends AppCompatActivity {
             String formatSaat = formatterSaat.format(cagriZamani);
             cagriKaydi.setCagriSaat(formatSaat);
 
-            mDataList.add(cagriKaydi);
+            mDataList.add(cagriKaydi);*/
+
+            String formatTarih = formatterTarih.format(cagriZamani);
+            String formatSaat = formatterSaat.format(cagriZamani);
 
                 if(! dbManager.Exists(formatSaat,formatTarih)) {
 
@@ -143,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         cursor.close();
-        return mDataList;
+
     }
 
 

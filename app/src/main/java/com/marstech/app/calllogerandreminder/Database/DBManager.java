@@ -3,9 +3,14 @@ package com.marstech.app.calllogerandreminder.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQuery;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.widget.Toast;
+
+import com.marstech.app.calllogerandreminder.Model.CalLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +71,8 @@ public class DBManager {
         sqlDB=db.getWritableDatabase();
     }
 
+
+//veri tabanına ekleme işlemini yapar.
     public long Insert (ContentValues values) {
 
         long ID= sqlDB.insert(DBManager.TABLENAME,null,values);
@@ -73,6 +80,8 @@ public class DBManager {
         return ID;
     }
 
+
+//kayıt mevcutmu diye kontrol eder
     public boolean Exists(String formatSaat, String formatTarih) {
 
 
@@ -87,4 +96,110 @@ public class DBManager {
         return exists;
     }
 
+
+//şartlı sorgu yapabileceğimiz method
+    public Cursor query  (String[] projection,String selection,String[] selectionArgs,String sortOrder) {
+
+        SQLiteQueryBuilder qb= new SQLiteQueryBuilder();
+        qb.setTables(TABLENAME);
+
+        Cursor cursor=qb.query(sqlDB,projection,selection,selectionArgs,null,null,sortOrder);
+
+        return cursor;
+
+
+    }
+
+ //veritabanından verileri çeker
+    public ArrayList<CalLog> loadData(String callNumber) {
+
+       ArrayList<CalLog> mDataList= new ArrayList<>();
+        Cursor cursor;
+
+        if(callNumber==null)
+        {
+             cursor=query(null,null,null,DBManager.COLTARIH+" DESC");
+        }
+
+        else {
+            String selection=DBManager.COLNUMARA + " =?";
+            String[] selectionArgs = { callNumber };
+
+
+            cursor=query(null,selection,selectionArgs,DBManager.COLTARIH+" DESC");
+        }
+
+
+
+       if(cursor.moveToFirst()){
+
+           do {
+
+               CalLog cagriKaydi= new CalLog();
+
+               cagriKaydi.setCagriIsim(cursor.getString(cursor.getColumnIndex(DBManager.COLISIM)));
+               cagriKaydi.setCagriNumara(cursor.getString(cursor.getColumnIndex(DBManager.COLNUMARA)));
+               cagriKaydi.setCagriSure(cursor.getString(cursor.getColumnIndex(DBManager.COLSURE)));
+               cagriKaydi.setCagriTipi(cursor.getString(cursor.getColumnIndex(DBManager.COLTIP)));
+               cagriKaydi.setCagriTarih(cursor.getString(cursor.getColumnIndex(DBManager.COLTARIH)));
+               cagriKaydi.setCagriSaat(cursor.getString(cursor.getColumnIndex(DBManager.COLSAAT)));
+
+               mDataList.add(cagriKaydi);
+
+           }
+
+
+           while(cursor.moveToNext()); }
+
+
+
+
+                return mDataList;
+
+           }
+
+public int count(String callNumber,String callType) {
+
+    String selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
+    String[] selectionArgs = { callNumber,callType };
+
+    Cursor c=query(null,selection,selectionArgs,null);
+    int count=c.getCount();
+
+    c.close();
+
+    return count;
+
 }
+
+
+public int sum(String callNumber,String callType) {
+    int sum =0;
+
+    String selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
+    String[] selectionArgs = { callNumber,callType };
+    Cursor cursor=query(null,selection,selectionArgs,null);
+
+    if(cursor.moveToFirst()){
+
+        do {
+
+          sum+= Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBManager.COLSURE)));
+
+
+        }
+
+
+        while(cursor.moveToNext()); }
+
+
+    return sum;
+
+}
+
+
+
+
+}
+
+
