@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.marstech.app.calllogerandreminder.Adapter.MyAdapter;
 import com.marstech.app.calllogerandreminder.Database.DBManager;
 import com.marstech.app.calllogerandreminder.Model.CalLog;
+import com.roughike.bottombar.BottomBar;
 
 import org.w3c.dom.Text;
 
