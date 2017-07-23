@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,20 +6,29 @@
     tools:context="com.marstech.app.calllogerandreminder.MainActivity">
 
 <!-- This could be your fragment container, or something -->
-<FrameLayout
+
+
+
+    <FrameLayout
     android:id="@+id/contentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@+id/bottomBar"
     >
 
+
+
 </FrameLayout>
+
+
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        app:bb_tabXmlResource="@xml/bottom_tabs" />
+        app:bb_tabXmlResource="@xml/bottom_tabs"
+        app:bb_behavior="shy"
+        android:layout_gravity="bottom"/>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

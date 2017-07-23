@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
             //   getCallDetails(this);
             CallDetails callDetails= new CallDetails(this,dbManager);
             callDetails.getCallDetails();
-            mDataList = dbManager.loadData(null);
+            mDataList = dbManager.loadData(null,null);
             myAdapter = new MyAdapter(this, mDataList,"");
             recyclerView.setAdapter(myAdapter);
             LinearLayoutManager mLinearLayoutManagert = new LinearLayoutManager(this);

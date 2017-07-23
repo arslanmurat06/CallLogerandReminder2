@@ -33,6 +33,7 @@ public class DBManager {
     public static String COLTIP="cagriTipi";
     public static String COLBILDIRIM="bildirim";
 
+
     static final int DBVERSION=1;
 
     static final String CreateTable="CREATE TABLE IF NOT EXISTS "+TABLENAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+ COLISIM+" TEXT,"+
@@ -111,19 +112,30 @@ public class DBManager {
     }
 
  //veritabanından verileri çeker
-    public ArrayList<CalLog> loadData(String callNumber) {
+    public ArrayList<CalLog> loadData(String CallIsım,String CallNumara) {
 
        ArrayList<CalLog> mDataList= new ArrayList<>();
-        Cursor cursor;
+        Cursor cursor=null;
 
-        if(callNumber==null)
+        if(CallIsım==null && CallNumara==null)//null ise Callogfragmettan geliyor değilse statisticfragmenttan geliyor
         {
              cursor=query(null,null,null,DBManager.COLTARIH+" DESC");
         }
 
+
+        else if(CallIsım.equals("İsimsiz") ) {
+
+            String selection=DBManager.COLNUMARA+ " =?";
+            String[] selectionArgs = { CallNumara };
+
+
+            cursor=query(null,selection,selectionArgs,DBManager.COLTARIH+" DESC");
+
+        }
+
         else {
-            String selection=DBManager.COLNUMARA + " =?";
-            String[] selectionArgs = { callNumber };
+            String selection=DBManager.COLISIM + " =?";
+            String[] selectionArgs = { CallIsım };
 
 
             cursor=query(null,selection,selectionArgs,DBManager.COLTARIH+" DESC");
@@ -158,26 +170,62 @@ public class DBManager {
 
            }
 
-public int count(String callNumber,String callType) {
+public int count(String callNumber,String callIsım,String callType) {
+    Cursor cursor=null;
+    int count=0;
+    String selection;
+    String[] selectionArgs;
 
-    String selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
-    String[] selectionArgs = { callNumber,callType };
+    if(callIsım.equals("İsimsiz"))
+    {
+    selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
+    selectionArgs =new String[] { callNumber,callType };
 
-    Cursor c=query(null,selection,selectionArgs,null);
-    int count=c.getCount();
+        cursor=query(null,selection,selectionArgs,null);
+    count=cursor.getCount();
 
-    c.close();
+    }
+
+    else
+        {
+            selection=DBManager.COLISIM + " =?" + " AND " + DBManager.COLTIP + " =?";
+            selectionArgs =new String[] { callIsım,callType };
+
+
+
+        }
+
+    cursor=query(null,selection,selectionArgs,null);
+    count=cursor.getCount();
+
+    cursor.close();
 
     return count;
 
 }
 
 
-public int sum(String callNumber,String callType) {
+public int sum(String callNumber,String callIsim,String callType) {
     int sum =0;
+    String selection;
+    String[] selectionArgs;
 
-    String selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
-    String[] selectionArgs = { callNumber,callType };
+
+    if(callIsim.equals("İsimsiz")) {
+
+      selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
+      selectionArgs = new String[] { callNumber,callType };
+  }
+
+
+    else {
+
+      selection=DBManager.COLISIM + " =?" + " AND " + DBManager.COLTIP + " =?";
+     selectionArgs =new String[] { callIsim,callType };
+
+  }
+
+
     Cursor cursor=query(null,selection,selectionArgs,null);
 
     if(cursor.moveToFirst()){

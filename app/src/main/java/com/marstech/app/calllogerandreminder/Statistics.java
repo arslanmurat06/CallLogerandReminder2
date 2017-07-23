@@ -48,7 +48,7 @@ public class Statistics extends AppCompatActivity {
         String numara=getIntent().getStringExtra("numara");
         String callType=getIntent().getStringExtra("tipi");
 
-        mDataList = dbManager.loadData(numara);
+        mDataList = dbManager.loadData(numara,isim);
         myAdapter = new MyAdapter(this, mDataList,"sts");
         recyclerViewDetails.setAdapter(myAdapter);
 
@@ -57,17 +57,17 @@ public class Statistics extends AppCompatActivity {
         recyclerViewDetails.setLayoutManager(mLinearLayoutManagert);
 
 
-        stsIncoming.setText(String.valueOf(dbManager.count(numara,"INCOMING")));
-        stsOutgoing.setText(String.valueOf(dbManager.count(numara,"OUTGOING")));
-        stsMissing.setText(String.valueOf(dbManager.count(numara,"MISSED")));
-        stsRejected.setText(String.valueOf(dbManager.count(numara,"REJECTED")));
+        stsIncoming.setText(String.valueOf(dbManager.count(numara,isim,"INCOMING")));
+        stsOutgoing.setText(String.valueOf(dbManager.count(numara,isim,"OUTGOING")));
+        stsMissing.setText(String.valueOf(dbManager.count(numara,isim,"MISSED")));
+        stsRejected.setText(String.valueOf(dbManager.count(numara,isim,"REJECTED")));
 
 
 
 
-        InDuration.setText(sureDonustur(dbManager.sum(numara,"INCOMING")));
-        OutDuration.setText(sureDonustur(dbManager.sum(numara,"OUTGOING")));
-        totalDuration.setText(sureDonustur(dbManager.sum(numara,"INCOMING")+dbManager.sum(numara,"OUTGOING")));
+        InDuration.setText(sureDonustur(dbManager.sum(numara,isim,"INCOMING")));
+        OutDuration.setText(sureDonustur(dbManager.sum(numara,isim,"OUTGOING")));
+        totalDuration.setText(sureDonustur(dbManager.sum(numara,isim,"INCOMING")+dbManager.sum(numara,isim,"OUTGOING")));
 
 
 
