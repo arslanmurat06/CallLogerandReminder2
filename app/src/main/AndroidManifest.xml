@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.marstech.app.calllogerandreminder">
 
+    <uses-sdk tools:overrideLibrary="android.support.v17.leanback" />
+
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-sdk tools:overrideLibrary="android.support.v17.leanback"/>
 
     <application
         android:allowBackup="true"
@@ -20,10 +21,24 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".Statistics" />
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeActivity" />
+
+        <receiver
+            android:name=".SetReminder.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+
+                <action  android:name="com.marstech.app.calllogerandreminder"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+            </intent-filter>
+
+
+        </receiver>
     </application>
 
 </manifest>

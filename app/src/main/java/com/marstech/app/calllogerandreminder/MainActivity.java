@@ -11,11 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.marstech.app.calllogerandreminder.SetReminder.PopDate;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     Boolean izin=false;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                             break;
                         case R.id.tab_item3:
+
                             break;
                         case R.id.tab_item4:
                             break;
@@ -129,6 +131,13 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() == 1) {
+            moveTaskToBack(false);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 }

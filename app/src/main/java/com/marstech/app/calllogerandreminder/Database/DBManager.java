@@ -34,10 +34,18 @@ public class DBManager {
     public static String COLBILDIRIM="bildirim";
 
 
+
     static final int DBVERSION=1;
 
-    static final String CreateTable="CREATE TABLE IF NOT EXISTS "+TABLENAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+ COLISIM+" TEXT,"+
-            COLNUMARA +" TEXT,"+ COLTARIH +" TEXT,"+ COLSAAT +" TEXT,"+ COLTIP +" TEXT,"+ COLSURE +" TEXT,"+ COLBILDIRIM +" TEXT);";
+    static final String CreateTable="CREATE TABLE IF NOT EXISTS "
+            +TABLENAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLISIM+" TEXT,"
+            + COLNUMARA +" TEXT,"
+            + COLTARIH +" TEXT,"
+            + COLSAAT +" TEXT,"
+            + COLTIP +" TEXT,"
+            + COLSURE +" TEXT,"
+            + COLBILDIRIM +" TEXT);";
 
     static class DatabaseHelperUser extends SQLiteOpenHelper {
 
@@ -181,8 +189,6 @@ public int count(String callNumber,String callIsım,String callType) {
     selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
     selectionArgs =new String[] { callNumber,callType };
 
-        cursor=query(null,selection,selectionArgs,null);
-    count=cursor.getCount();
 
     }
 
