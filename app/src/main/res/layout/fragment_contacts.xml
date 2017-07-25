@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.marstech.app.calllogerandreminder.ContactsFragment"
+    android:id="@+id/contactsFragment"
+    android:background="@color/cardview_light_background">
+
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerViewContacts"
+        android:layout_above="@+id/bottomBar"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+</FrameLayout>
