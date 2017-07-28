@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.widget.Toast;
 
 import com.marstech.app.calllogerandreminder.Model.CalLog;
+import com.marstech.app.calllogerandreminder.Model.ContactReminder;
 
 import java.util.ArrayList;
 
@@ -18,14 +19,19 @@ import java.util.ArrayList;
 
 public class DBManagerReminder {
     private  SQLiteDatabase sqlDB;
-    public static String DBNAME="Reminder";
+    public static String DBNAME="Reminders";
     public static String TABLENAME="Reminder_Recs";
 
     public static String COLID="id";
     public static String COLISIM="cagriIsım";
     public static String COLNUMARA="cagriNumara";
-    public static String COLBILDIRIMZAMAN="bildirimZaman";
+    public static String COLBILDIRIMGUN="bildirimGun";
+    public static String COLBILDIRIMAY="bildirimAy";
+    public static String COLBILDIRIMYIL="bildirimYil";
+    public static String COLBILDIRIMSAAT="bildirimSaat";
+    public static String COLBILDIRIMDAKIKA="bildirimDakika";
     public static String COLBILDIRIMMESAJ="bildirimMesaj";
+    public static String COLBILDIRIMZAMAN="bildirimZaman";
 
 
     static final int DBVERSION=1;
@@ -34,8 +40,14 @@ public class DBManagerReminder {
             +TABLENAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLISIM+" TEXT,"
             + COLNUMARA +" TEXT,"
+            + COLBILDIRIMGUN +" TEXT,"
+            + COLBILDIRIMAY +" TEXT,"
+            + COLBILDIRIMYIL +" TEXT,"
+            + COLBILDIRIMSAAT +" TEXT,"
+            + COLBILDIRIMDAKIKA +" TEXT,"
             + COLBILDIRIMZAMAN +" TEXT,"
             + COLBILDIRIMMESAJ +" TEXT);";
+
 
     static class DatabaseHelperUser extends SQLiteOpenHelper {
 
@@ -79,6 +91,15 @@ public class DBManagerReminder {
         return ID;
     }
 
+    public long update(String numara,ContentValues values) {
+        String[] selectionArgs = { numara };
+
+        long ID=sqlDB.update(DBManagerReminder.TABLENAME,values,DBManagerReminder.COLNUMARA + "=?",selectionArgs);
+
+        return ID;
+
+    }
+
 
 //kayıt mevcutmu diye kontrol eder
     public boolean Exists(String numaraReminder) {
@@ -110,27 +131,34 @@ public class DBManagerReminder {
     }
 
  //veritabanından verileri çeker
-    public ArrayList<CalLog> loadData() {
+    public ArrayList<ContactReminder> loadData() {
 
-       ArrayList<CalLog> mDataList= new ArrayList<>();
+       ArrayList<ContactReminder> mDataList= new ArrayList<>();
         Cursor cursor=null;
 
-             cursor=query(null,null,null, DBManagerReminder.COLBILDIRIMZAMAN+" DESC");
+             cursor=query(null,null,null,null);
 
 
        if(cursor.moveToFirst()){
 
            do {
 
-               CalLog cagriKaydi= new CalLog();
+               ContactReminder contactReminder= new ContactReminder();
 
-               cagriKaydi.setCagriIsim(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLISIM)));
-               cagriKaydi.setCagriNumara(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLNUMARA)));
-               cagriKaydi.setCagriSure(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMMESAJ)));
-               cagriKaydi.setCagriTipi(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMZAMAN)));
+               contactReminder.setReminderIsim(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLISIM)));
+               contactReminder.setReminderNumara(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLNUMARA)));
+               contactReminder.setReminderMesaj(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMMESAJ)));
+               contactReminder.setReminderGun(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMGUN)));
+               contactReminder.setReminderAy(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMAY)));
+               contactReminder.setReminderYil(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMYIL)));
+               contactReminder.setReminderSaat(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMSAAT)));
+               contactReminder.setReminderDakika(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMDAKIKA)));
+               contactReminder.setReminderZaman(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMZAMAN)));
+               contactReminder.setReminderBroadcastId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
 
 
-               mDataList.add(cagriKaydi);
+
+               mDataList.add(contactReminder);
 
            }
 

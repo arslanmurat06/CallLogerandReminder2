@@ -8,8 +8,7 @@ public class Contacts {
     String contactName;
     String contactNumber;
     String normalizedNumber;
-    String bildirimZaman;
-    String bildirimMesaj;
+    String bildirim;
 
     public String getNormalizedNumber() {
         return normalizedNumber;

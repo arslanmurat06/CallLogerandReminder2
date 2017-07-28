@@ -90,11 +90,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                             .commit();
 
 
-
-
-                    Toast.makeText(context, "Merhaba Contacts tan tıklandım", Toast.LENGTH_SHORT).show();
-
-
                 }
             });}
 

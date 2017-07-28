@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -15,16 +16,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marstech.app.calllogerandreminder.Database.DBManager;
+import com.marstech.app.calllogerandreminder.Database.DBManagerReminder;
+import com.marstech.app.calllogerandreminder.Model.ContactReminder;
+import com.marstech.app.calllogerandreminder.Model.Contacts;
 import com.marstech.app.calllogerandreminder.SetReminder.MyBroadcastReceiver;
 import com.marstech.app.calllogerandreminder.SetReminder.PopDate;
 import com.marstech.app.calllogerandreminder.SetReminder.PopTime;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -35,15 +41,23 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
 
     TextView txtIsim,txtNumara,txtDate,txtTime;
     ImageView imgPopDate,imgPopTime;
+    EditText edtReminderMesaj;
+
+    String isim,numara;
     String gun,ay,yil;
     String saat,dakika;
+    String reminderMesaj;
     String reminderDateandTime;
     Button btnSetReminder;
     public static final int DATEPICKER_FRAGMENT = 1;
     public static final int TIMEPICKER_FRAGMENT = 2;
     SimpleDateFormat sdf = new SimpleDateFormat(
             "yyyy-MM-dd HH:mm");
-    DBManager dbManager;
+    DBManagerReminder dbManagerReminder;
+    Contacts contacts;
+
+
+
 
     public BildirimFragment() {
         // Required empty public constructor
@@ -61,6 +75,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
         txtNumara=(TextView) view.findViewById(R.id.txtNumara);
         txtDate=(TextView) view.findViewById(R.id.txtDate);
         txtTime=(TextView) view.findViewById(R.id.txtTime);
+        edtReminderMesaj=(EditText) view.findViewById(R.id.edtReminderMesaj);
 
         imgPopDate=(ImageView) view.findViewById(R.id.imgPopDate);
         imgPopTime=(ImageView) view.findViewById(R.id.imgPopTime);
@@ -69,8 +84,9 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
         imgPopTime.setOnClickListener(this);
         btnSetReminder.setOnClickListener(this);
 
-        String isim= getArguments().getString("isim");
-        String numara=getArguments().getString("numara");
+
+        isim= getArguments().getString("isim");
+        numara=getArguments().getString("numara");
 
         txtIsim.setText(isim);
         txtNumara.setText(numara);
@@ -119,19 +135,60 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
 
                 else {
 
-                setReminderMethod(gun,ay,yil,saat,dakika);
-                Toast.makeText(getActivity(), "Alarm :"+reminderDateandTime+" tarihe kuruldu", Toast.LENGTH_SHORT).show();
 
-                ContactsFragment contactsFragment=new ContactsFragment();
+
+                Toast.makeText(getActivity(), "Alarm :"+reminderDateandTime+" tarihe "+numara+" için kuruldu", Toast.LENGTH_SHORT).show();
+
+                    reminderMesaj=edtReminderMesaj.getText().toString();
+
+                    dbManagerReminder=new DBManagerReminder(getActivity());
+                    ContentValues values = new ContentValues();
+
+                    if(! dbManagerReminder.Exists(numara)) {
+
+
+                        values.put(DBManagerReminder.COLISIM, isim);
+                        values.put(DBManagerReminder.COLNUMARA, numara);
+                        values.put(DBManagerReminder.COLBILDIRIMMESAJ, reminderMesaj);
+                        values.put(DBManagerReminder.COLBILDIRIMGUN, gun);
+                        values.put(DBManagerReminder.COLBILDIRIMAY, ay);
+                        values.put(DBManagerReminder.COLBILDIRIMYIL, yil);
+                        values.put(DBManagerReminder.COLBILDIRIMSAAT, saat);
+                        values.put(DBManagerReminder.COLBILDIRIMDAKIKA, dakika);
+                        values.put(DBManagerReminder.COLBILDIRIMZAMAN, reminderDateandTime);
+
+
+                        dbManagerReminder.Insert(values);
+
+                    }
+
+                    else {
+                        values.put(DBManagerReminder.COLBILDIRIMMESAJ, reminderMesaj);
+                        values.put(DBManagerReminder.COLBILDIRIMGUN, gun);
+                        values.put(DBManagerReminder.COLBILDIRIMAY, ay);
+                        values.put(DBManagerReminder.COLBILDIRIMYIL, yil);
+                        values.put(DBManagerReminder.COLBILDIRIMSAAT, saat);
+                        values.put(DBManagerReminder.COLBILDIRIMDAKIKA, dakika);
+                        values.put(DBManagerReminder.COLBILDIRIMZAMAN, reminderDateandTime);
+
+                        Toast.makeText(getActivity(), isim+"'in mesajı "+reminderMesaj+" olarak değiştirildi", Toast.LENGTH_SHORT).show();
+
+                        dbManagerReminder.update(numara,values);
+
+                    }
+
+                    setReminder(getActivity());
+
+                    ContactsFragment contactsFragment=new ContactsFragment();
                 android.app.FragmentManager manager = ((Activity) getActivity()).getFragmentManager();
-
-                manager.beginTransaction()
+                    manager.beginTransaction()
                         .replace(R.id.contentContainer, contactsFragment)
-                        .commit();}
+                        .commit();
 
+
+                }
 
         }
-
 
     }
 
@@ -168,33 +225,65 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void setReminder(Context context)
 
-
-    public void setReminderMethod(String gun,String ay,String yil,String saat,String dakika)
     {
+        ArrayList<ContactReminder> mDataList= new ArrayList<>();
+        DBManagerReminder dbManagerReminder= new DBManagerReminder(context);
+        ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+
+        mDataList= dbManagerReminder.loadData();
+
+
+        for(int i=0;i<mDataList.size();i++) {
 
             Calendar cal=Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH,Integer.parseInt(gun));
-        cal.set(Calendar.MONTH,Integer.parseInt(ay));
-        cal.set(Calendar.YEAR,Integer.parseInt(yil));
-        cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(saat));
-        cal.set(Calendar.MINUTE,Integer.parseInt(dakika));
-        cal.set(Calendar.SECOND,0);
+            cal.set(Calendar.DAY_OF_MONTH,Integer.parseInt(mDataList.get(i).getReminderGun()));
+            cal.set(Calendar.MONTH,Integer.parseInt(mDataList.get(i).getReminderAy()));
+            cal.set(Calendar.YEAR,Integer.parseInt(mDataList.get(i).getReminderYil()));
+            cal.set(Calendar.HOUR_OF_DAY,Integer.parseInt(mDataList.get(i).getReminderSaat()));
+            cal.set(Calendar.MINUTE,Integer.parseInt(mDataList.get(i).getReminderDakika()));
+            cal.set(Calendar.SECOND,0);
 
-        AlarmManager am = (AlarmManager)getActivity().getSystemService  (Context.ALARM_SERVICE);
-        Intent intent = new Intent(getActivity(), MyBroadcastReceiver.class);
-        intent.setAction("com.marstech.app.calllogerandreminder");
-        intent.putExtra("MyMessage","Alarmdan merhaba");
-        PendingIntent pi = PendingIntent.getBroadcast(getActivity(), 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY , pi);
+            if (cal.getTimeInMillis() >= System.currentTimeMillis())
+            {
+
+               // Toast.makeText(context, "setReminder fonksiyonuna gelen yeni zaman vee alarm mesajı : "+cal.getTime()+" "+mDataList.get(i).getReminderMesaj(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, "Br IDsi "+mDataList.get(i).getReminderBroadcastId(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, MyBroadcastReceiver.class);
+                intent.setAction("com.marstech.app.calllogerandreminder");
+                intent.putExtra("MyMessage", mDataList.get(i).getReminderMesaj());
+                PendingIntent pi = PendingIntent.getBroadcast(context, mDataList.get(i).getReminderBroadcastId(), intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+                cancelAlarmIfExists(context,mDataList.get(i).getReminderBroadcastId(),intent);
+                AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+                        pi);
+
+                intentArray.add(pi);
+
+               // Toast.makeText(context, mDataList.get(i).getReminderMesaj() + " BRID " + mDataList.get(i).getReminderBroadcastId() + "Alarmın milisaniye olarak " + cal.getTimeInMillis(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, "Sistem ile alar arasındaki milisaniye farkı "+(cal.getTimeInMillis()-System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
+            }
 
 
-
-
-
+        }
 
 
     }
+// alarm önceden varsa onu iptal ediyor ve yenisi yukarı mettodda kuruluyor
+    public void cancelAlarmIfExists(Context mContext,int requestCode,Intent intent){
+        try{
+
+          //  Toast.makeText(mContext, "BRID'li "+requestCode+" oldugu icin iptal edildi", Toast.LENGTH_SHORT).show();
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, requestCode, intent,0);
+            AlarmManager am=(AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+            am.cancel(pendingIntent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

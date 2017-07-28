@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
 
             final BottomBarTab item4 = bottomBar.getTabWithId(R.id.tab_item4);
             item4.setBadgeCount(4);
-            Toast.makeText(this, "Main act,v,ty oluşturuldu", Toast.LENGTH_LONG).show();
+
 
 
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
