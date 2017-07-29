@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.marstech.app.calllogerandreminder.SetReminder.PopDate;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -69,6 +68,8 @@ public class MainActivity extends AppCompatActivity  {
 
                             break;
                         case R.id.tab_item3:
+                            fr = new ReminderListFragment();
+                            setFragment(fr);
 
                             break;
                         case R.id.tab_item4:

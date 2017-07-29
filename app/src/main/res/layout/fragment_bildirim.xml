@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.marstech.app.calllogerandreminder.BildirimFragment"
-    android:id="@+id/bildirimFragment">
+    android:id="@+id/bildirimFragment"
+    android:background="@color/cardview_light_background">
 
 
     <LinearLayout
