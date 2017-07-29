@@ -32,6 +32,7 @@ public class DBManagerReminder {
     public static String COLBILDIRIMDAKIKA="bildirimDakika";
     public static String COLBILDIRIMMESAJ="bildirimMesaj";
     public static String COLBILDIRIMZAMAN="bildirimZaman";
+    public static String COLBILDIRIMDURUM="bildirimDurum";
 
 
     static final int DBVERSION=1;
@@ -46,6 +47,7 @@ public class DBManagerReminder {
             + COLBILDIRIMSAAT +" TEXT,"
             + COLBILDIRIMDAKIKA +" TEXT,"
             + COLBILDIRIMZAMAN +" TEXT,"
+            + COLBILDIRIMDURUM +" TEXT,"
             + COLBILDIRIMMESAJ +" TEXT);";
 
 
@@ -100,6 +102,14 @@ public class DBManagerReminder {
 
     }
 
+    public long delete(String reminderIsim) {
+
+        String[] selectionArgs = { reminderIsim };
+
+        long ID=sqlDB.delete(DBManagerReminder.TABLENAME,DBManagerReminder.COLISIM + "=?",selectionArgs);
+        return ID;
+
+    }
 
 //kayıt mevcutmu diye kontrol eder
     public boolean Exists(String numaraReminder) {
@@ -155,6 +165,7 @@ public class DBManagerReminder {
                contactReminder.setReminderDakika(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMDAKIKA)));
                contactReminder.setReminderZaman(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMZAMAN)));
                contactReminder.setReminderBroadcastId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
+               contactReminder.setReminderDurum(cursor.getString(cursor.getColumnIndex(DBManagerReminder.COLBILDIRIMDURUM)));
 
 
 
@@ -172,17 +183,11 @@ public class DBManagerReminder {
 
            }
 
-public int count(String callNumber) {
+public int count() {
     Cursor cursor=null;
     int count=0;
-    String selection;
-    String[] selectionArgs;
 
-
-    selection= DBManagerReminder.COLNUMARA + " =?";
-    selectionArgs =new String[] { callNumber};
-
-    cursor=query(null,selection,selectionArgs,null);
+    cursor=query(null,null,null,null);
     count=cursor.getCount();
 
     cursor.close();

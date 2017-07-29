@@ -57,7 +57,7 @@ public class ReminderListFragment extends Fragment {
         mLinearLayoutManagert.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLinearLayoutManagert);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Your Call Logs");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reminder Details");
         return view;
 
 

@@ -47,6 +47,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
     String gun,ay,yil;
     String saat,dakika;
     String reminderMesaj;
+    String mesaj;
     String reminderDateandTime;
     Button btnSetReminder;
     public static final int DATEPICKER_FRAGMENT = 1;
@@ -87,6 +88,21 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
 
         isim= getArguments().getString("isim");
         numara=getArguments().getString("numara");
+        mesaj=getArguments().getString("mesaj");
+        gun=getArguments().getString("gün");
+        ay=getArguments().getString("ay");
+        yil=getArguments().getString("yıl");
+        saat=getArguments().getString("saat");
+        dakika=getArguments().getString("dakika");
+
+        edtReminderMesaj.setText(mesaj);
+
+        if(gun!=null && ay!=null && yil!=null) {
+        txtDate.setText(gun+"-"+ay+"-"+yil);
+        txtTime.setText(saat+":"+dakika);
+
+
+        }
 
         txtIsim.setText(isim);
         txtNumara.setText(numara);
@@ -156,6 +172,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
                         values.put(DBManagerReminder.COLBILDIRIMSAAT, saat);
                         values.put(DBManagerReminder.COLBILDIRIMDAKIKA, dakika);
                         values.put(DBManagerReminder.COLBILDIRIMZAMAN, reminderDateandTime);
+                        values.put(DBManagerReminder.COLBILDIRIMDURUM, "aktif");
 
 
                         dbManagerReminder.Insert(values);
@@ -170,6 +187,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
                         values.put(DBManagerReminder.COLBILDIRIMSAAT, saat);
                         values.put(DBManagerReminder.COLBILDIRIMDAKIKA, dakika);
                         values.put(DBManagerReminder.COLBILDIRIMZAMAN, reminderDateandTime);
+                        values.put(DBManagerReminder.COLBILDIRIMDURUM, "aktif");
 
                         Toast.makeText(getActivity(), isim+"'in mesajı "+reminderMesaj+" olarak değiştirildi", Toast.LENGTH_SHORT).show();
 
@@ -253,6 +271,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(context, MyBroadcastReceiver.class);
                 intent.setAction("com.marstech.app.calllogerandreminder");
                 intent.putExtra("MyMessage", mDataList.get(i).getReminderMesaj());
+                intent.putExtra("numara", numara);
                 PendingIntent pi = PendingIntent.getBroadcast(context, mDataList.get(i).getReminderBroadcastId(), intent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -39,7 +39,7 @@
                 <action  android:name="android.intent.action.BOOT_COMPLETED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
 
-                <action android:name="com.marstech.app.calllogeerandrreminder.MyBroadcastReceiver"></action>
+              <action android:name="com.marstech.app.calllogeerandrreminder.MyBroadcastReceiver"></action>
 
             </intent-filter>
 

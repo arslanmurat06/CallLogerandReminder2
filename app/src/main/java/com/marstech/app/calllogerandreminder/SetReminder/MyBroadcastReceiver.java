@@ -3,6 +3,7 @@ package com.marstech.app.calllogerandreminder.SetReminder;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
-
+    DBManagerReminder dbManagerReminder;
     Bundle b=null;
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -27,6 +28,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         if (intent.getAction().equalsIgnoreCase("com.marstech.app.calllogerandreminder")) {
 
             b = intent.getExtras();
+            dbManagerReminder=new DBManagerReminder(context);
+            ContentValues values = new ContentValues();
 
             Toast.makeText(context, b.getString("MyMessage"), Toast.LENGTH_LONG).show();
             Vibrator vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
@@ -34,6 +37,9 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 vibrator.vibrate(400);
 
           ///  Toast.makeText(context, "Broadcast receiverden geliyoırum count "+count, Toast.LENGTH_SHORT).show();
+
+            values.put(DBManagerReminder.COLBILDIRIMDURUM, "pasif");
+            dbManagerReminder.update(b.getString("numara"),values);
 
 
         } else if (intent.getAction().equalsIgnoreCase("android.intent.action.BOOT_COMPLETED")) {
@@ -43,6 +49,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             DBManagerReminder dbManagerReminder = new DBManagerReminder(context);
             mDataList = dbManagerReminder.loadData();
             ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+
 
             for (int i = 0; i < mDataList.size(); i++) {
 
@@ -67,6 +74,13 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                     AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
                             pi);
+
+                }
+
+                else {
+                    ContentValues values = new ContentValues();
+                    values.put(DBManagerReminder.COLBILDIRIMDURUM, "pasif");
+                    dbManagerReminder.update(b.getString("numara"),values);
 
                 }
 

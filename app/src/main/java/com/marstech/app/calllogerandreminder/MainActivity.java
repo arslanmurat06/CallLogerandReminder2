@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.marstech.app.calllogerandreminder.Database.DBManagerReminder;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -20,6 +21,21 @@ public class MainActivity extends AppCompatActivity  {
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     Boolean izin=false;
     public Fragment fr;
+    int reminderCount;
+
+    BottomBarTab item1,item2,item3,item4;
+
+
+
+    public MainActivity(BottomBarTab item1,BottomBarTab item2, BottomBarTab item3, BottomBarTab item4) {
+        this.item1 = item1;
+        this.item2 = item2;
+        this.item3 = item3;
+        this.item4 = item4;
+    }
+    public MainActivity() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +43,25 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         CheckUserPermsions();//danger pernissions
         setContentView(R.layout.activity_main);
+
+        final DBManagerReminder dbManagerReminder= new DBManagerReminder(this);
+        reminderCount=dbManagerReminder.count();
+
         if (izin == true) {
 
             BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
-            final BottomBarTab item1 = bottomBar.getTabWithId(R.id.tab_item1);
-            item1.setBadgeCount(1);
+            item1 = bottomBar.getTabWithId(R.id.tab_item1);
+           // item1.setBadgeCount(1);
 
-            final BottomBarTab item2 = bottomBar.getTabWithId(R.id.tab_item2);
-            item2.setBadgeCount(2);
+             item2 = bottomBar.getTabWithId(R.id.tab_item2);
+         //   item2.setBadgeCount(2);
 
-            final BottomBarTab item3 = bottomBar.getTabWithId(R.id.tab_item3);
-            item3.setBadgeCount(3);
+           item3 = bottomBar.getTabWithId(R.id.tab_item3);
+            item3.setBadgeCount(reminderCount);
 
-            final BottomBarTab item4 = bottomBar.getTabWithId(R.id.tab_item4);
-            item4.setBadgeCount(4);
+            item4 = bottomBar.getTabWithId(R.id.tab_item4);
+           // item4.setBadgeCount(4);
 
 
 
@@ -49,12 +69,17 @@ public class MainActivity extends AppCompatActivity  {
                 @Override
                 public void onTabSelected(@IdRes int tabId) {
 
+                    reminderCount=dbManagerReminder.count();
+                    item3.setBadgeCount(reminderCount);
 
                     switch (tabId) {
 
+
+
                         case R.id.tab_item1:
 
-                            item1.removeBadge();
+                            //  item1.removeBadge();
+
                             fr = new ContactsFragment();
                             setFragment(fr);
 
@@ -62,12 +87,14 @@ public class MainActivity extends AppCompatActivity  {
                             break;
                         case R.id.tab_item2:
 
-                            item2.removeBadge();
+                        //    item2.removeBadge();
                             fr = new CallLogFragment();
                             setFragment(fr);
 
                             break;
                         case R.id.tab_item3:
+
+
                             fr = new ReminderListFragment();
                             setFragment(fr);
 
@@ -141,4 +168,5 @@ public class MainActivity extends AppCompatActivity  {
             super.onBackPressed();
         }
     }
+
 }

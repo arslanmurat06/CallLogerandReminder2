@@ -2,9 +2,11 @@ package com.marstech.app.calllogerandreminder.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.marstech.app.calllogerandreminder.BildirimFragment;
+import com.marstech.app.calllogerandreminder.Database.DBManagerReminder;
 import com.marstech.app.calllogerandreminder.Model.ContactReminder;
 import com.marstech.app.calllogerandreminder.Model.Contacts;
 import com.marstech.app.calllogerandreminder.R;
@@ -62,6 +66,37 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
         final ContactReminder tiklaninanKayit=mDataList.get(position);
         holder.setData (tiklaninanKayit,position);
 
+        holder.rootCardViewReminderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                BildirimFragment bildirimFragment=new BildirimFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("isim",tiklaninanKayit.getReminderIsim());
+                bundle.putString("numara",tiklaninanKayit.getReminderNumara());
+                bundle.putString("mesaj",tiklaninanKayit.getReminderMesaj());
+                bundle.putString("gün",tiklaninanKayit.getReminderGun());
+                bundle.putString("gün",tiklaninanKayit.getReminderGun());
+                bundle.putString("ay",tiklaninanKayit.getReminderAy());
+                bundle.putString("yıl",tiklaninanKayit.getReminderYil());
+                bundle.putString("saat",tiklaninanKayit.getReminderSaat());
+                bundle.putString("dakika",tiklaninanKayit.getReminderDakika());
+                //     bundle.putString("tipi",tiklaninanKayit.getCagriTipi());
+                bildirimFragment.setArguments(bundle);
+
+
+
+//herhangi bir cardview tıklanınca Statistics fragmentının açılmasını sağladık
+                android.app.FragmentManager manager = ((Activity) context).getFragmentManager();
+
+                manager.beginTransaction()
+                        .replace(R.id.contentContainer, bildirimFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
+
 
 
     }
@@ -77,7 +112,7 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
 
         TextView reminderIsim,reminderNumara,reminderTarih,reminderSaat,reminderDurum;
         ImageView imgReminder,imgReminderDelete;
-        CardView rootCardViewReminder;
+        CardView rootCardViewReminderList;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -87,16 +122,16 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
             reminderIsim=(TextView)itemView.findViewById(R.id.reminderIsim);
             reminderNumara=(TextView)itemView.findViewById(R.id.reminderNumara);
             reminderTarih=(TextView)itemView.findViewById(R.id.reminderTarih);
-            reminderSaat=(TextView)itemView.findViewById(R.id.reminderSaat);
+
             reminderDurum=(TextView)itemView.findViewById(R.id.reminderDurum);
 
             imgReminder=(ImageView) itemView.findViewById(R.id.imgReminder);
             imgReminderDelete=(ImageView) itemView.findViewById(R.id.imgReminderDelete);
-            rootCardViewReminder=(CardView) itemView.findViewById(R.id.rootCardView);
+            rootCardViewReminderList=(CardView) itemView.findViewById(R.id.rootCardViewReminderList);
 
         }
 
-        public void setData(ContactReminder tiklaninanKayit, int position) {
+        public void setData(final ContactReminder tiklaninanKayit, final int position) {
 
 
             this.reminderIsim.setText(tiklaninanKayit.getReminderIsim());
@@ -105,7 +140,53 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
             Random rnd = new Random();
             imgReminder.setColorFilter(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
 
+            if(tiklaninanKayit.getReminderDurum().equals("aktif")) {
+                this.reminderDurum.setText("Aktif");
 
+            }
+
+            else {
+                this.reminderDurum.setText("Pasif");
+                this.reminderDurum.setTextColor(Color.RED);
+
+            }
+
+            imgReminderDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                    dialog.setCancelable(false);
+                    dialog.setTitle("Deleting Reminder");
+                    dialog.setMessage("Are you sure* you want to delete this reminder?" );
+                    dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            DBManagerReminder dbManagerReminder=new DBManagerReminder(context);
+                            dbManagerReminder.delete(mDataList.get(position).getReminderIsim());
+
+
+                            mDataList.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position,mDataList.size());
+
+                            Toast.makeText(context,"Reminder removed",Toast.LENGTH_SHORT).show();
+
+                        }
+                    })
+                            .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                    final AlertDialog alert = dialog.create();
+                    alert.show();
+
+                }
+            });
 
 
 
