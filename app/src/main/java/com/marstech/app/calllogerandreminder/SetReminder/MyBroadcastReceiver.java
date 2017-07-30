@@ -21,15 +21,20 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
     DBManagerReminder dbManagerReminder;
-    Bundle b=null;
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
         if (intent.getAction().equalsIgnoreCase("com.marstech.app.calllogerandreminder")) {
 
-            b = intent.getExtras();
+            Bundle b = intent.getExtras();
             dbManagerReminder=new DBManagerReminder(context);
             ContentValues values = new ContentValues();
+
+            if(dbManagerReminder.Exists(b.getString("numara"))) {
+
+
+
 
             Toast.makeText(context, b.getString("MyMessage"), Toast.LENGTH_LONG).show();
             Vibrator vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
@@ -41,12 +46,15 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             values.put(DBManagerReminder.COLBILDIRIMDURUM, "pasif");
             dbManagerReminder.update(b.getString("numara"),values);
 
+            }
+
+
 
         } else if (intent.getAction().equalsIgnoreCase("android.intent.action.BOOT_COMPLETED")) {
 
 
             ArrayList<ContactReminder> mDataList = new ArrayList<>();
-            DBManagerReminder dbManagerReminder = new DBManagerReminder(context);
+            dbManagerReminder = new DBManagerReminder(context);
             mDataList = dbManagerReminder.loadData();
             ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
 
@@ -66,11 +74,13 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 {
 
                     Intent intentim = new Intent(context, MyBroadcastReceiver.class);
-                    intent.putExtra("MyMessage", mDataList.get(i).getReminderMesaj());
-                    PendingIntent pi = PendingIntent.getBroadcast(context, mDataList.get(i).getReminderBroadcastId(), intent,
+                    intentim.setAction("com.marstech.app.calllogerandreminder");
+                    intentim.putExtra("MyMessage", mDataList.get(i).getReminderMesaj());
+                    intentim.putExtra("numara", mDataList.get(i).getReminderNumara());
+                    PendingIntent pi = PendingIntent.getBroadcast(context, mDataList.get(i).getReminderBroadcastId(), intentim,
                             PendingIntent.FLAG_UPDATE_CURRENT);
 
-                    cancelAlarmIfExists(context,mDataList.get(i).getReminderBroadcastId(),intent);
+                    cancelAlarmIfExists(context,mDataList.get(i).getReminderBroadcastId(),intentim);
                     AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
                             pi);
@@ -80,7 +90,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 else {
                     ContentValues values = new ContentValues();
                     values.put(DBManagerReminder.COLBILDIRIMDURUM, "pasif");
-                    dbManagerReminder.update(b.getString("numara"),values);
+                    dbManagerReminder.update(mDataList.get(i).getReminderNumara(),values);
 
                 }
 

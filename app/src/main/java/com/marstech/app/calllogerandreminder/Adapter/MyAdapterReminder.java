@@ -1,8 +1,11 @@
 package com.marstech.app.calllogerandreminder.Adapter;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -23,10 +26,12 @@ import com.marstech.app.calllogerandreminder.Database.DBManagerReminder;
 import com.marstech.app.calllogerandreminder.Model.ContactReminder;
 import com.marstech.app.calllogerandreminder.Model.Contacts;
 import com.marstech.app.calllogerandreminder.R;
+import com.marstech.app.calllogerandreminder.SetReminder.MyBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import static android.content.Context.ALARM_SERVICE;
 import static java.security.AccessController.getContext;
 
 /**
@@ -163,13 +168,29 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
 
+
+                           /* try{
+                                Intent intent = new Intent(context, MyBroadcastReceiver.class);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, tiklaninanKayit.getReminderBroadcastId(), intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                                ((AlarmManager)context.getSystemService(context.ALARM_SERVICE)).cancel(pendingIntent);
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }*/
                             DBManagerReminder dbManagerReminder=new DBManagerReminder(context);
                             dbManagerReminder.delete(mDataList.get(position).getReminderIsim());
+
+
 
 
                             mDataList.remove(position);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position,mDataList.size());
+
+
+                            //reminder listten silinen reminderın alarmını iptal etmek gerekiyor. buna bak
+
+
 
                             Toast.makeText(context,"Reminder removed",Toast.LENGTH_SHORT).show();
 

@@ -30,57 +30,43 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/reminderIsim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="Murat Arslan"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:orientation="horizontal">
 
 
                 <TextView
-                    android:id="@+id/reminderIsim"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/reminderNumara"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
-                    android:paddingTop="5dp"
-                    android:text="Murat Arslan"
-                    android:textSize="16sp"
+                    android:text="05075627437"
                     android:textStyle="bold" />
-
-
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/reminderNumara"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:text="05075627437"
-                android:textStyle="bold" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/reminderTarih"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
                     android:text="17.07.2017 "
                     android:textSize="12sp" />
-
-
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/reminderDurum"
