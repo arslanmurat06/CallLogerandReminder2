@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.marstech.app.calllogerandreminder.BildirimFragment;
+import com.marstech.app.calllogerandreminder.Database.DBManagerReminder;
 import com.marstech.app.calllogerandreminder.Model.CalLog;
 import com.marstech.app.calllogerandreminder.Model.Contacts;
 import com.marstech.app.calllogerandreminder.R;
@@ -38,6 +39,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
     Context context;
     String flag="";
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
+    DBManagerReminder dbManagerReminder;
+
 
     public ContactsAdapter (Context context,ArrayList<Contacts> data,String flag) {
 
@@ -86,7 +89,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
 
                     manager.beginTransaction()
                             .replace(R.id.contentContainer, bildirimFragment)
-                            .addToBackStack(null)
+                            .addToBackStack("tag1")
                             .commit();
 
 
@@ -106,7 +109,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView contactName,contactNumber,contactNormalizedNumber;
-        ImageView imgKisiResim;
+        ImageView imgKisiResim,imgIsReminderSet;
         CardView rootCardView;
 
 
@@ -119,6 +122,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
             contactNumber=(TextView)itemView.findViewById(R.id.contactNumber);
 
             imgKisiResim=(ImageView) itemView.findViewById(R.id.imgKisiResim);
+            imgIsReminderSet=(ImageView)itemView.findViewById(R.id.imgIsReminderSet) ;
             rootCardView=(CardView) itemView.findViewById(R.id.rootCardView);
 
 
@@ -150,6 +154,15 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
 
             this.imgKisiResim.setImageDrawable(drawable);
 
+            dbManagerReminder=new DBManagerReminder(context);
+            if(dbManagerReminder.isReminderSet(mDataList.get(position).getContactNumber(),"aktif")){
+
+                imgIsReminderSet.setVisibility(View.VISIBLE);
+
+
+            }
+
+            else { imgIsReminderSet.setVisibility(View.INVISIBLE);}
 
         }
     }
@@ -163,7 +176,11 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         return firstLetter;
     }
 
-
+    public void setFilter(ArrayList<Contacts> contactsSearch) {
+        mDataList = new ArrayList<>();
+        mDataList.addAll(contactsSearch);
+        notifyDataSetChanged();
+    }
 
 
 

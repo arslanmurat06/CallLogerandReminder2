@@ -96,8 +96,10 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
 
                 manager.beginTransaction()
                         .replace(R.id.contentContainer, bildirimFragment)
-                        .addToBackStack(null)
+                        .addToBackStack("tag3")
                         .commit();
+
+
 
             }
         });

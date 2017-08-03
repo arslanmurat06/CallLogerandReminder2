@@ -22,6 +22,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.marstech.app.calllogerandreminder.FragmentCommunication;
 import com.marstech.app.calllogerandreminder.Model.CalLog;
+import com.marstech.app.calllogerandreminder.Model.Contacts;
 import com.marstech.app.calllogerandreminder.R;
 import com.marstech.app.calllogerandreminder.Statistics;
 import com.marstech.app.calllogerandreminder.StatisticsFragment;
@@ -93,8 +94,9 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
 
                     manager.beginTransaction()
                             .replace(R.id.contentContainer, statisticsFragment)
-                            .addToBackStack(null)
+                            .addToBackStack("tag2")
                             .commit();
+
 
 
 
@@ -231,7 +233,11 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
     }
 
 
-
+    public void setFilter(ArrayList<CalLog> callogSearch) {
+        mDataList = new ArrayList<>();
+        mDataList.addAll(callogSearch);
+        notifyDataSetChanged();
+    }
 
 
 }

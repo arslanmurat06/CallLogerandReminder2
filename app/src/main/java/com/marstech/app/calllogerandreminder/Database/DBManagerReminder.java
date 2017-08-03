@@ -126,6 +126,21 @@ public class DBManagerReminder {
         return exists;
     }
 
+    public boolean  isReminderSet(String numaraReminder,String durum) {
+
+        String[] columns = { DBManagerReminder.COLNUMARA,DBManagerReminder.COLBILDIRIMDURUM };
+        String selection=DBManagerReminder.COLNUMARA + " =?" + " AND " + DBManagerReminder.COLBILDIRIMDURUM + " =?";
+        String[] selectionArgs = { numaraReminder,durum };
+        String limit = "1";
+
+        Cursor cursor = sqlDB.query(DBManagerReminder.TABLENAME, columns, selection, selectionArgs, null, null, null, limit);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+
+
+    }
+
 
 //şartlı sorgu yapabileceğimiz method
     public Cursor query  (String[] projection,String selection,String[] selectionArgs,String sortOrder) {
@@ -187,7 +202,14 @@ public int count() {
     Cursor cursor=null;
     int count=0;
 
-    cursor=query(null,null,null,null);
+    String selection;
+    String[] selectionArgs;
+
+    selection=DBManagerReminder.COLBILDIRIMDURUM + " =?";
+    selectionArgs =new String[] { "aktif" };
+
+
+    cursor=query(null,selection,selectionArgs,null);
     count=cursor.getCount();
 
     cursor.close();

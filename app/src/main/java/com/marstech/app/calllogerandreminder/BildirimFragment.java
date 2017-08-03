@@ -55,6 +55,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
     SimpleDateFormat sdf = new SimpleDateFormat(
             "yyyy-MM-dd HH:mm");
     DBManagerReminder dbManagerReminder;
+    DBManager dbManager;
     Contacts contacts;
 
 

@@ -3,6 +3,7 @@ package com.marstech.app.calllogerandreminder;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,9 +58,17 @@ public class ReminderListFragment extends Fragment {
         mLinearLayoutManagert.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLinearLayoutManagert);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reminder Details");
+
         return view;
 
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+        ((MainActivity) getActivity()).setActionBarTitle("Reminder List");
 
     }
 
