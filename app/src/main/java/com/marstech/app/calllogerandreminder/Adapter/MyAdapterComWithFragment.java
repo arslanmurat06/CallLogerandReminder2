@@ -9,6 +9,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.marstech.app.calllogerandreminder.FragmentCommunication;
 import com.marstech.app.calllogerandreminder.Model.CalLog;
 import com.marstech.app.calllogerandreminder.Model.Contacts;
+import com.marstech.app.calllogerandreminder.MyDiffCallback;
 import com.marstech.app.calllogerandreminder.R;
 import com.marstech.app.calllogerandreminder.Statistics;
 import com.marstech.app.calllogerandreminder.StatisticsFragment;
@@ -50,10 +52,7 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
         this.context=context;
         this.flag=flag;
 
-
     }
-
-
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -88,7 +87,6 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
                     statisticsFragment.setArguments(bundle);
 
 
-
 //herhangi bir cardview tıklanınca Statistics fragmentının açılmasını sağladık
                    android.app.FragmentManager manager = ((Activity) context).getFragmentManager();
 
@@ -98,13 +96,8 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
                             .commit();
 
 
-
-
-
-
                 }
             });}
-
 
     }
 
@@ -114,13 +107,11 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
     }
 
 
-
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView cagriIsim,cagriNumara,cagriTarih,cagriSaat,cagriSure;
         ImageView imgCagriTipi,imgKisiResim;
         CardView rootCardView;
-        FragmentCommunication mComminication;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -138,14 +129,6 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
             imgKisiResim=(ImageView) itemView.findViewById(R.id.imgKisiResim);
             rootCardView=(CardView) itemView.findViewById(R.id.rootCardView);
 
-          //  mComminication=Communicator;
-
-           // mComminication.respond(mDataList.get(getAdapterPosition()).getCagriIsim(),mDataList.get(getAdapterPosition()).getCagriNumara(),mDataList.get(getAdapterPosition()).getCagriTipi());
-
-
-
-
-
         }
 
         public void setData(CalLog tiklaninanKayit, int position) {
@@ -156,7 +139,6 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
                 tiklaninanKayit.setCagriIsim("İsimsiz");
 
             }
-
 
             this.cagriIsim.setText(tiklaninanKayit.getCagriIsim());
             this.cagriNumara.setText(tiklaninanKayit.getCagriNumara());
@@ -239,5 +221,13 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
         notifyDataSetChanged();
     }
 
+    public void updateList(ArrayList<CalLog> newList) {
 
+        final MyDiffCallback diffCallback = new MyDiffCallback(this.mDataList, newList);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.mDataList.clear();
+        this.mDataList.addAll(newList);
+        diffResult.dispatchUpdatesTo(this);
+    }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -89,7 +90,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
 
                     manager.beginTransaction()
                             .replace(R.id.contentContainer, bildirimFragment)
-                            .addToBackStack("tag1")
+                            .addToBackStack("tag")
                             .commit();
 
 
@@ -109,7 +110,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView contactName,contactNumber,contactNormalizedNumber;
-        ImageView imgKisiResim,imgIsReminderSet;
+        ImageView imgKisiResim,imgIsReminderSet,imgCall;
         CardView rootCardView;
 
 
@@ -124,7 +125,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
             imgKisiResim=(ImageView) itemView.findViewById(R.id.imgKisiResim);
             imgIsReminderSet=(ImageView)itemView.findViewById(R.id.imgIsReminderSet) ;
             rootCardView=(CardView) itemView.findViewById(R.id.rootCardView);
-
+            imgCall=(ImageView) itemView.findViewById(R.id.imgCall);
 
 
 
@@ -132,7 +133,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
 
         }
 
-        public void setData(Contacts tiklaninanKayit, int position) {
+        public void setData(final Contacts tiklaninanKayit, int position) {
 
             if(tiklaninanKayit.getContactName()==null)
 
@@ -153,6 +154,20 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                     .buildRound(firstLetter(tiklaninanKayit.getContactName().toString()).toString(), mColorGenerator.getColor(tiklaninanKayit.getContactName().toString()));
 
             this.imgKisiResim.setImageDrawable(drawable);
+
+            imgCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent in = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+tiklaninanKayit.getContactNumber().toString()));
+                    try {
+                        context.startActivity(in);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(context, "Could not find an activity to place the call.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
 
             dbManagerReminder=new DBManagerReminder(context);
             if(dbManagerReminder.isReminderSet(mDataList.get(position).getContactNumber(),"aktif")){

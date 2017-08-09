@@ -273,6 +273,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
                 intent.setAction("com.marstech.app.calllogerandreminder");
                 intent.putExtra("MyMessage", mDataList.get(i).getReminderMesaj());
                 intent.putExtra("numara", mDataList.get(i).getReminderNumara());
+                intent.putExtra("isim",mDataList.get(i).getReminderIsim());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 PendingIntent pi = PendingIntent.getBroadcast(context, mDataList.get(i).getReminderBroadcastId(), intent,

@@ -3,4 +3,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="reminder_notification_title_template">Reminder: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+
+    <string name="action_call">Call Now</string>
+    <string name="action_cancel">Cancel</string>
 </resources>

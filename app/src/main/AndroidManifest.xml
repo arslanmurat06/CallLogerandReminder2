@@ -7,9 +7,9 @@
 
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -32,17 +32,15 @@
             android:name=".SetReminder.MyBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-
             <intent-filter>
+                <action android:name="com.marstech.app.calllogerandreminder" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
 
-                <action  android:name="com.marstech.app.calllogerandreminder"/>
-                <action  android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
         </receiver>
+
+        <activity android:name=".AlertDialogActivity" />
     </application>
 
 </manifest>

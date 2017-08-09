@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity  {
     Fragment contactFragment= new ContactsFragment();
     Fragment callogFragment= new CallLogFragment();
     Fragment reminderFragment= new ReminderListFragment();
+    Fragment settingsFragment= new SettingsFragment();
 
 
     public MainActivity(BottomBarTab item1,BottomBarTab item2, BottomBarTab item3, BottomBarTab item4) {
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         final DBManagerReminder dbManagerReminder= new DBManagerReminder(this);
         reminderCount=dbManagerReminder.count();
+
 
         mfragmentManager.beginTransaction()
                 .add(R.id.contentContainer, contactFragment)
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity  {
             // item4.setBadgeCount(4);
 
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -112,6 +116,8 @@ public class MainActivity extends AppCompatActivity  {
 
                             break;
                         case R.id.tab_item4:
+
+                            setFragment(settingsFragment);
                             break;
 
                         default:
@@ -149,14 +155,18 @@ public class MainActivity extends AppCompatActivity  {
     }
     void CheckUserPermsions(){
 
-        String[] izinler={Manifest.permission.READ_CALL_LOG,Manifest.permission.READ_CONTACTS};
+        String[] izinler={Manifest.permission.READ_CALL_LOG,
+                          Manifest.permission.READ_CONTACTS,
+                          Manifest.permission.CALL_PHONE};
         if ( Build.VERSION.SDK_INT >= 23){
 
             for(String izin:izinler) {
                 if (ActivityCompat.checkSelfPermission(this, izin) !=
                         PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{
-                                    android.Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS},
+                                    android.Manifest.permission.READ_CALL_LOG,
+                                    Manifest.permission.READ_CONTACTS,
+                                    Manifest.permission.CALL_PHONE},
                             REQUEST_CODE_ASK_PERMISSIONS);
                     return;
                 }
@@ -164,6 +174,8 @@ public class MainActivity extends AppCompatActivity  {
         }
         izin=true;
     }
+
+
 
 
 
@@ -179,7 +191,7 @@ public class MainActivity extends AppCompatActivity  {
                     izin=true;
                 } else {
                     // Permission Denied
-                    Toast.makeText( this,"Rehbere erişim izni alınamadı" , Toast.LENGTH_SHORT)
+                    Toast.makeText( this,"Uygulamaya izin verilmedi" , Toast.LENGTH_SHORT)
                             .show();
                 }
                 break;
@@ -188,11 +200,16 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.exit:
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

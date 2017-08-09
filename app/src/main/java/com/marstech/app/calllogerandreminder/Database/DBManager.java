@@ -62,7 +62,6 @@ public class DBManager {
         public void onCreate(SQLiteDatabase db) {
 
             db.execSQL(CreateTable);
-            Toast.makeText(context, "Table is created", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -89,10 +88,8 @@ public class DBManager {
         return ID;
     }
 
-
 //kayıt mevcutmu diye kontrol eder
     public boolean Exists(String formatSaat, String formatTarih) {
-
 
         String[] columns = { DBManager.COLSAAT,DBManager.COLTARIH };
         String selection = DBManager.COLSAAT + " =?" + " AND "+ DBManager.COLTARIH + " =?" ;
@@ -116,8 +113,29 @@ public class DBManager {
 
         return cursor;
 
-
     }
+   public String isNameExists (String numara) {
+       String name;
+       Cursor cursor=null;
+       String selection=DBManager.COLNUMARA+ " =?";
+       String[] selectionArgs = { numara };
+       cursor=query(null,selection,selectionArgs,null);
+       if(cursor.moveToFirst()) {
+
+           do {
+
+               name = cursor.getString(cursor.getColumnIndex(DBManager.COLISIM));
+
+           }
+
+           while(cursor.moveToNext()); }
+
+
+
+       else {name=null;}
+       return name;
+   }
+
 
  //veritabanından verileri çeker
     public ArrayList<CalLog> loadData(String CallIsım,String CallNumara) {
@@ -149,14 +167,13 @@ public class DBManager {
             cursor=query(null,selection,selectionArgs,DBManager.COLTARIH+" DESC");
         }
 
-
-
        if(cursor.moveToFirst()){
 
            do {
 
                CalLog cagriKaydi= new CalLog();
 
+               cagriKaydi.setCagriID(cursor.getInt(cursor.getColumnIndex("ID")));
                cagriKaydi.setCagriIsim(cursor.getString(cursor.getColumnIndex(DBManager.COLISIM)));
                cagriKaydi.setCagriNumara(cursor.getString(cursor.getColumnIndex(DBManager.COLNUMARA)));
                cagriKaydi.setCagriSure(cursor.getString(cursor.getColumnIndex(DBManager.COLSURE)));
@@ -168,12 +185,7 @@ public class DBManager {
 
            }
 
-
            while(cursor.moveToNext()); }
-
-
-
-
                 return mDataList;
 
            }
@@ -189,15 +201,12 @@ public int count(String callNumber,String callIsım,String callType) {
     selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
     selectionArgs =new String[] { callNumber,callType };
 
-
     }
 
     else
         {
             selection=DBManager.COLISIM + " =?" + " AND " + DBManager.COLTIP + " =?";
             selectionArgs =new String[] { callIsım,callType };
-
-
 
         }
 
@@ -209,7 +218,6 @@ public int count(String callNumber,String callIsım,String callType) {
     return count;
 
 }
-
 
 public int sum(String callNumber,String callIsim,String callType) {
     int sum =0;
@@ -231,7 +239,6 @@ public int sum(String callNumber,String callIsim,String callType) {
 
   }
 
-
     Cursor cursor=query(null,selection,selectionArgs,null);
 
     if(cursor.moveToFirst()){
@@ -240,9 +247,7 @@ public int sum(String callNumber,String callIsim,String callType) {
 
           sum+= Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBManager.COLSURE)));
 
-
         }
-
 
         while(cursor.moveToNext()); }
 
@@ -250,8 +255,6 @@ public int sum(String callNumber,String callIsim,String callType) {
     return sum;
 
 }
-
-
 
 
 }

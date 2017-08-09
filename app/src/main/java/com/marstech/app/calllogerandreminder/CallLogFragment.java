@@ -53,6 +53,7 @@ public class CallLogFragment extends Fragment implements SearchView.OnQueryTextL
         CallDetails callDetails= new CallDetails(getActivity(),dbManager);
         callDetails.getCallDetails();
         mDataList = dbManager.loadData(null,null);//DBMANAger Load Data hem statisticsFragmentten hem de Callogfragmenttan çağrıldığı için null gönderdik
+
         myAdapterComWithFragment = new MyAdapterComWithFragment(getActivity(), mDataList,"");
         recyclerView.setAdapter(myAdapterComWithFragment);
         LinearLayoutManager mLinearLayoutManagert = new LinearLayoutManager(getActivity());
@@ -79,6 +80,7 @@ public class CallLogFragment extends Fragment implements SearchView.OnQueryTextL
 //for searchbutton http://tutorialsbuzz.com/2015/11/android-filter-recyclerview-using-searchview-in-toolbar.html
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu, menu);
 
         final MenuItem item = menu.findItem(R.id.action_search);

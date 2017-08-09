@@ -66,7 +66,6 @@ public class DBManagerReminder {
         public void onCreate(SQLiteDatabase db) {
 
             db.execSQL(CreateTable);
-            Toast.makeText(context, "Table is created", Toast.LENGTH_SHORT).show();
 
         }
 

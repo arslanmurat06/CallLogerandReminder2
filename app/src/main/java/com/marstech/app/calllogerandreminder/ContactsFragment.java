@@ -67,11 +67,12 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle("Contatcs");
+        ((MainActivity) getActivity()).setActionBarTitle("Contacts");
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu, menu);
 
         final MenuItem item = menu.findItem(R.id.action_search);
