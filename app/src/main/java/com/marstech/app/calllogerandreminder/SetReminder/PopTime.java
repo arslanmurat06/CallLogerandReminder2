@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.marstech.app.calllogerandreminder.R;
 
@@ -28,6 +29,7 @@ public class PopTime extends DialogFragment implements View.OnClickListener {
     Button btnSetTime;
     View view;
     int saat,dakika;
+
 
 
 
@@ -56,25 +58,26 @@ public class PopTime extends DialogFragment implements View.OnClickListener {
 
 
 
-        if((int) Build.VERSION.SDK_INT>=23) {
-                    i
-                    .putExtra("saat", String.valueOf(timePicker.getHour()))
-                    .putExtra("dakika", String.valueOf(timePicker.getMinute()));
+
+
+            if ((int) Build.VERSION.SDK_INT >= 23) {
+                i
+                        .putExtra("saat", String.valueOf(timePicker.getHour()))
+                        .putExtra("dakika", String.valueOf(timePicker.getMinute()));
+
+            } else {
+
+                i
+                        .putExtra("saat", String.valueOf(timePicker.getCurrentHour()))
+                        .putExtra("dakika", String.valueOf(timePicker.getCurrentMinute()));
+
+
+            }
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+            dismiss();
 
         }
 
-        else {
-
-                    i
-                    .putExtra("saat", String.valueOf(timePicker.getCurrentHour()))
-                    .putExtra("dakika", String.valueOf(timePicker.getCurrentMinute()));
-
-
-        }
-        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
-        dismiss();
-
-    }
 
 
 

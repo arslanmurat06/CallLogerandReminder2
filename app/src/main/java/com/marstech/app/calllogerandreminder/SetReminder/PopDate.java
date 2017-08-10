@@ -43,6 +43,9 @@ public class PopDate extends DialogFragment implements View.OnClickListener{
         btnSetDate=(Button) view.findViewById(R.id.btnSetDate);
         btnSetDate.setOnClickListener(this);
 
+
+        final Calendar c = Calendar.getInstance();
+        datePicker.setMinDate(c.getTimeInMillis());
         return view;
     }
 

@@ -44,7 +44,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
     EditText edtReminderMesaj;
 
     String isim,numara;
-    String gun,ay,yil;
+    String gun,ay,yil="";
     String saat,dakika;
     String reminderMesaj;
     String mesaj;
@@ -57,6 +57,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
     DBManagerReminder dbManagerReminder;
     DBManager dbManager;
     Contacts contacts;
+    Calendar datetime,c;
 
 
 
@@ -108,7 +109,8 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
         txtIsim.setText(isim);
         txtNumara.setText(numara);
 
-
+        datetime = Calendar.getInstance();
+        c = Calendar.getInstance();
 
         return view;
     }
@@ -141,12 +143,23 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
             case R.id.btnSetReminder:
 
                 reminderDateandTime= gun+"-"+ay+"-"+yil+" "+saat+":"+dakika;
+                datetime.set(Calendar.YEAR, Integer.parseInt(yil));
+                datetime.set(Calendar.MONTH, Integer.parseInt(ay));
+                datetime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(gun));
+                datetime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(saat));
+                datetime.set(Calendar.MINUTE, Integer.parseInt(dakika));
 
                 if(gun==null || dakika==null)
 
                 {
 
                     Toast.makeText(getActivity(), "Lütfen bir tarih ve saat seçin", Toast.LENGTH_SHORT).show();
+
+                }
+
+                else if(datetime.getTimeInMillis() <= c.getTimeInMillis()){
+
+                    Toast.makeText(getActivity(), "Geçmiş zamanaa alarm kurulamaz", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -222,8 +235,9 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
                     gun = bundle.getString("gün");
                     ay = bundle.getString("ay");
                     yil = bundle.getString("yil");
+                    int ayim=Integer.parseInt(ay)+1;
 
-                    txtDate.setText(gun+"-"+ay+"-"+yil);
+                    txtDate.setText(gun+"-"+ayim+"-"+yil);
 
                     break;
                 }

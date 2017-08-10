@@ -34,7 +34,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/textView3"
@@ -43,6 +44,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
+                android:paddingTop="20dp"
                 android:text="Send notification for the call reminder"
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="18sp" />
@@ -53,6 +55,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#BEBEBE" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,6 +76,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
+                android:paddingBottom="20dp"
                 android:text="Ring a tone for the call reminder"
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="18sp" />
@@ -76,6 +87,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#BEBEBE" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,6 +108,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
+                android:paddingBottom="20dp"
                 android:text="Vibrate the phone for the call reminder"
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="18sp" />
@@ -99,6 +119,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#BEBEBE" />
 
     </LinearLayout>
 </FrameLayout>
