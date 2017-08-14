@@ -15,6 +15,15 @@ public class CalLog {
     int imgKisiResimId;
     String cagriSure;
     int cagriID;
+    String cagriZaman;
+
+    public String getCagriZaman() {
+        return cagriZaman;
+    }
+
+    public void setCagriZaman(String cagriZaman) {
+        this.cagriZaman = cagriZaman;
+    }
 
     public int getCagriID() {
         return cagriID;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Call Loger and Reminder</string>
+    <string name="app_name">Call Logger and Reminder</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -10,4 +10,66 @@
 
     <string name="action_call">Call Now</string>
     <string name="action_cancel">Cancel</string>
+    <string name="about_app_name">Call Logger and Reminder 1.0.0</string>
+    <string name="copyright">Copyright 2017 All rights reserved</string>
+    <string name="about_alert_button">OK</string>
+    <string name="bildirim_date">dd/mm/YYYY</string>
+    <string name="bildirim_time">hh:mm</string>
+    <string name="reminder_text">Edit reminder text here....</string>
+    <string name="set_reminder_button">Set Reminder</string>
+    <string name="settings_desc">You can change settings of the application here</string>
+    <string name="settings_notification">Send notification for the call reminder</string>
+    <string name="settings_ring_tone">Ring a tone for the call reminder</string>
+    <string name="settings_vibrate">Vibrate the phone for the call reminder</string>
+    <string name="statistics_incoming">INCOMING</string>
+    <string name="statistics_outgoing">OUTGOING</string>
+    <string name="statistics_missing">MISSING</string>
+    <string name="statistics_rejected">REJECTED</string>
+    <string name="call_duration">VOICE CALLS DURATIONS</string>
+    <string name="duration_incoming">Incoming</string>
+    <string name="duration_outgoing">Outgoing</string>
+    <string name="duration_total">TOTAL</string>
+    <string name="statistics_all_calls">ALL CALLS</string>
+    <string name="contacts_call">Call</string>
+    <string name="reminder_active">Active</string>
+    <string name="pop_date_button">Set Date</string>
+    <string name="pop_time_button">Set Time</string>
+    <string name="toast_permission">You didnt allow the app to reach your contacts</string>
+    <string name="about_alert_title">About</string>
+    <string name="sharebodytext">Hey dude , let you use this call logger and reminder app http://play.google.com/store/apps/details?id=</string>
+    <string name="share_subject">This app is for you</string>
+    <string name="reminder_alert_title">Call Reminder -</string>
+    <string name="reminder_alert_message">Your reminder message is;</string>
+    <string name="reminder_alert_button">Call Now</string>
+    <string name="bildirim_setreminder_warn">Please choose a date and time</string>
+    <string name="bildirim_past_time_warn">You cannot set the alarm for the past time</string>
+    <string name="bildirim_alarm">Alarm :</string>
+    <string name="bildirim_tarihe">has been set for</string>
+    <string name="bildirim_icin_kuruldu">.</string>
+    <string name="callog_action_bar">Call Logs</string>
+    <string name="contacts_action_bar">Contacts</string>
+    <string name="reminder_action_bar">Reminder List</string>
+    <string name="reminder_notify_title">Reminder for calling</string>
+    <string name="settings_action_bar">Settings</string>
+    <string name="reminder_notify_text">Your reminder message is:</string>
+    <string name="reminder_notify_big_text">Reminder message:</string>
+    <string name="reminder_notify_big_text_title">Call reminder for:</string>
+    <string name="reminder_notify_big_text_summary">Call reminder notification</string>
+    <string name="contatcs_unknown">Unknown</string>
+    <string name="reminder_passive">Passive</string>
+    <string name="reminder_delete_title">Deleting Reminder</string>
+    <string name="reminder_delete_message">Are you sure* you want to delete this reminder?</string>
+    <string name="reminder_delete_button">Delete</string>
+    <string name="reminder_deleted_message">Reminder removed</string>
+    <string name="home">Home</string>
+    <string name="call_logs">Call Logs</string>
+    <string name="reminder">Reminder</string>
+    <string name="settings_share">Share with friends</string>
+    <string name="settings_rate">Rate app</string>
+    <string name="settings_about">About</string>
+    <string name="settings_cikis">Exit</string>
+    <string name="developed_by">Developed by Marstech Tech.</string>
+    <string name="unknown_record">Unknown</string>
+    <string name="hour">h </string>
+    <string name="minutes">m </string>
 </resources>

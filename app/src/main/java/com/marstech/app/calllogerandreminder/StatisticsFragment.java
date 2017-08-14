@@ -59,7 +59,7 @@ public class StatisticsFragment extends Fragment {
 
         String isim= getArguments().getString("isim");
         String numara=getArguments().getString("numara");
-        String callType=getArguments().getString("tipi");
+
 
 
         mDataList = dbManager.loadData(isim,numara);
@@ -96,11 +96,11 @@ public class StatisticsFragment extends Fragment {
 
         if(saat!=0)
         {
-            sure=saat+"h:"+dakika+"m "+artanSaniye+"s";
+            sure=saat+getString(R.string.hour)+" "+dakika+getString(R.string.minutes)+" "+artanSaniye+"s";
         }
         else
         {
-            sure=dakika+"m "+artanSaniye+"s";
+            sure=dakika+getString(R.string.minutes)+" "+artanSaniye+"s";
         }
 
         return sure;

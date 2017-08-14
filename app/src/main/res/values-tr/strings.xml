@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">Çağrı Kaydı ve Zamanlayıcı</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="reminder_notification_title_template">Hatırlatıcı: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+
+    <string name="action_call">Şimdi Ara</string>
+    <string name="action_cancel">İptal</string>
+    <string name="about_app_name">Çağrı Kaydı ve Zamanlayıcı 1.0.0</string>
+    <string name="copyright">Telif 2017Tüm Hakları Saklıdır</string>
+    <string name="about_alert_button">Tamam</string>
+    <string name="bildirim_date">gg/aa/YYYY</string>
+    <string name="bildirim_time">ss:dd</string>
+    <string name="reminder_text">Hatırlatıcı mesajı giriniz....</string>
+    <string name="set_reminder_button">Hatırlayıcı Kur</string>
+    <string name="settings_desc">Uygulama ayarlarını buradan değiştirebilirsiniz</string>
+    <string name="settings_notification">Çağrı hatırlatıcı için bildirim gönder</string>
+    <string name="settings_ring_tone">Çağrı hatırlatıcı için zil çal</string>
+    <string name="settings_vibrate">Çağrı hatırlatıcı için titret</string>
+    <string name="statistics_incoming">GELEN</string>
+    <string name="statistics_outgoing">GİDEN</string>
+    <string name="statistics_missing">CEVAPSIZ</string>
+    <string name="statistics_rejected">İPTAL</string>
+    <string name="call_duration">Toplam konuşma süresi</string>
+    <string name="duration_incoming">Gelen</string>
+    <string name="duration_outgoing">Giden</string>
+    <string name="duration_total">TOPLAM</string>
+    <string name="statistics_all_calls">TÜM ÇAĞRILAR</string>
+    <string name="contacts_call">Ara</string>
+    <string name="reminder_active">Aktif</string>
+    <string name="pop_date_button">Tarih seç</string>
+    <string name="pop_time_button">Saat Seç</string>
+    <string name="toast_permission">Uygulamaya izin verilmedi</string>
+    <string name="about_alert_title">Hakkında</string>
+    <string name="sharebodytext">Merhaba Çağrı Kaydı ve Zamanlayıcı uygulamasını indirmeni tavsiye ederim. http://play.google.com/store/apps/details?id=</string>
+    <string name="share_subject">Bu uygulama senin için</string>
+    <string name="reminder_alert_title">Çağrı Hatırlatıcı -</string>
+    <string name="reminder_alert_message">Hatırlatıcı mesajın: </string>
+    <string name="reminder_alert_button">Şimdi Ara</string>
+    <string name="bildirim_setreminder_warn">Lütfen bir tarih ve saat seçin</string>
+    <string name="bildirim_past_time_warn">Geçmiş zamanaa alarm kurulamaz</string>
+    <string name="bildirim_alarm">Alarm :</string>
+    <string name="bildirim_tarihe">tarihe</string>
+    <string name="bildirim_icin_kuruldu">için kuruldu</string>
+    <string name="callog_action_bar">Çağrı Kayıtları</string>
+    <string name="contacts_action_bar">Rehber</string>
+    <string name="reminder_action_bar">Hatırlatıcı Listesi</string>
+    <string name="reminder_notify_title">Çağrı için hatırlatıcı</string>
+    <string name="settings_action_bar">Ayarlar</string>
+    <string name="reminder_notify_text">Hatırlatıcı mesajınız: </string>
+    <string name="reminder_notify_big_text">Hatırlatıcı mesajınız: </string>
+    <string name="reminder_notify_big_text_title">Çağrı hatırlatıcı kurulan numara:</string>
+    <string name="reminder_notify_big_text_summary">Çağrı hatırlatıcı bildirimi</string>
+    <string name="home">Rehber</string>
+    <string name="call_logs">Kayıt</string>
+    <string name="reminder">Hatırlatıcı</string>
+    <string name="settings_share">Uygulamayı paylaş</string>
+    <string name="settings_rate">Uygulamayı puanla</string>
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_cikis">Çıkış</string>
+    <string name="developed_by">Marstech Tek. tarafından geliştirilmiştir</string>
+    <string name="unknown_record">İsimsiz</string>
+    <string name="hour">s </string>
+    <string name="minutes">d </string>
+    <string name="reminder_passive">Pasif</string>
+    <string name="reminder_delete_title">Hatırlatıcı Sil</string>
+    <string name="reminder_delete_message">Hatırlatıcıyı silmek istediğinizden emin misiniz?</string>
+    <string name="reminder_delete_button">Sil</string>
+    <string name="reminder_deleted_message">Hatırlatıcı silindi</string>
+    <string name="contatcs_unknown">İsimsiz</string>
+</resources>

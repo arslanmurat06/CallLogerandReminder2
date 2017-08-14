@@ -2,12 +2,7 @@ package com.marstech.app.calllogerandreminder.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
@@ -17,16 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.marstech.app.calllogerandreminder.FragmentCommunication;
 import com.marstech.app.calllogerandreminder.Model.CalLog;
-import com.marstech.app.calllogerandreminder.Model.Contacts;
 import com.marstech.app.calllogerandreminder.MyDiffCallback;
 import com.marstech.app.calllogerandreminder.R;
-import com.marstech.app.calllogerandreminder.Statistics;
 import com.marstech.app.calllogerandreminder.StatisticsFragment;
 
 import java.util.ArrayList;
@@ -136,7 +127,7 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
             if(tiklaninanKayit.getCagriIsim()==null)
 
             {
-                tiklaninanKayit.setCagriIsim("İsimsiz");
+                tiklaninanKayit.setCagriIsim(context.getString(R.string.contatcs_unknown));
 
             }
 
@@ -153,11 +144,11 @@ public class MyAdapterComWithFragment extends RecyclerView.Adapter<MyAdapterComW
 
             if(saat!=0)
             {
-                this.cagriSure.setText(saat+"h:"+dakika+"m "+artanSaniye+"s");
+                this.cagriSure.setText(saat+context.getString(R.string.hour)+" "+dakika+context.getString(R.string.minutes)+" "+artanSaniye+"s");
             }
             else
             {
-                this.cagriSure.setText(dakika+"m "+artanSaniye+"s");
+                this.cagriSure.setText(dakika+context.getString(R.string.minutes)+" "+artanSaniye+"s");
             }
 
 

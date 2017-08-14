@@ -67,7 +67,7 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle("Contacts");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.contacts_action_bar));
     }
 
     @Override

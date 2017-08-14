@@ -4,7 +4,7 @@
     <tab
         id="@+id/tab_item1"
         icon="@mipmap/ic_home"
-        title="Home"
+        title="@string/home"
         barColorWhenSelected="#673ab7"
         activeColor="#FAFAFA"
         inActiveColor="#FAFAFA"/>
@@ -12,7 +12,7 @@
     <tab
         id="@+id/tab_item2"
         icon="@mipmap/ic_callist"
-        title="Cal Logs"
+        title="@string/call_logs"
         barColorWhenSelected="#3f51b5"
         activeColor="#FAFAFA"
         inActiveColor="#FAFAFA"/>
@@ -20,7 +20,7 @@
     <tab
         id="@+id/tab_item3"
         icon="@mipmap/ic_reminder"
-        title="Reminder"
+        title="@string/reminder"
         barColorWhenSelected="#2196f3"
         activeColor="#FAFAFA"
         inActiveColor="#FAFAFA"/>
@@ -28,7 +28,7 @@
     <tab
         id="@+id/tab_item4"
         icon="@mipmap/ic_settings"
-        title="Settings"
+        title="@string/settings_action_bar"
         barColorWhenSelected="#9c27b0"
         activeColor="#FAFAFA"
         inActiveColor="#FAFAFA"/>

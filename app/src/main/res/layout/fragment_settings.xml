@@ -19,7 +19,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
-            android:text="You can change settings of the application"
+            android:text="@string/settings_desc"
             android:textColor="@color/bb_darkBackgroundColor"
             android:textSize="18sp" />
 
@@ -45,7 +45,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:paddingTop="20dp"
-                android:text="Send notification for the call reminder"
+                android:text="@string/settings_notification"
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="18sp" />
 
@@ -77,7 +77,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:paddingBottom="20dp"
-                android:text="Ring a tone for the call reminder"
+                android:text="@string/settings_ring_tone"
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="18sp" />
 
@@ -109,7 +109,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:paddingBottom="20dp"
-                android:text="Vibrate the phone for the call reminder"
+                android:text="@string/settings_vibrate"
                 android:textColor="@color/bb_darkBackgroundColor"
                 android:textSize="18sp" />
 

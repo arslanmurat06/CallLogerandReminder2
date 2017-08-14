@@ -48,7 +48,7 @@ public class ReminderListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle("Reminder List");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.reminder_action_bar));
 
     }
 

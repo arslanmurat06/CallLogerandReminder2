@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:gravity="center"
-                    android:text="INCOMING"
+                    android:text="@string/statistics_incoming"
                     android:textColor="@color/cardview_light_background"
                     android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:gravity="center"
-                    android:text="OUTGOING"
+                    android:text="@string/statistics_outgoing"
                     android:textColor="@color/cardview_light_background"
                     android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:gravity="center"
-                    android:text="MISSING"
+                    android:text="@string/statistics_missing"
                     android:textColor="@color/cardview_light_background"
                     android:textStyle="bold" />
 
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:gravity="center"
-                    android:text="REJECTED"
+                    android:text="@string/statistics_rejected"
                     android:textColor="@color/cardview_light_background"
                     android:textStyle="bold" />
 
@@ -165,7 +165,7 @@
             android:fontFamily="serif"
             android:paddingLeft="5dp"
             android:paddingTop="10dp"
-            android:text="VOICE CALLS DURATIONS"
+            android:text="@string/call_duration"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -188,7 +188,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:text="Incoming"
+                android:text="@string/duration_incoming"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -215,7 +215,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:text="Outgoing"
+                android:text="@string/duration_outgoing"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -251,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="15dp"
-                android:text="TOTAL"
+                android:text="@string/duration_total"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -275,7 +275,7 @@
             android:paddingBottom="3dp"
             android:paddingLeft="15dp"
             android:paddingTop="3dp"
-            android:text="ALL CALLS "
+            android:text="@string/statistics_all_calls"
             android:textSize="18sp"
             android:textStyle="bold" />
 

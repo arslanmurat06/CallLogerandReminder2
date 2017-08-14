@@ -6,7 +6,7 @@
     tools:context="com.marstech.app.calllogerandreminder.BildirimFragment"
     android:id="@+id/bildirimFragment"
     android:background="@color/cardview_light_background">
-
+    
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="dd/mm/YYYY"
+                android:text="@string/bildirim_date"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -90,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="hh:mm"
+                android:text="@string/bildirim_time"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -104,7 +104,7 @@
             android:layout_marginTop="20dp"
             android:background="@android:color/white"
             android:ems="10"
-            android:hint="Edit reminder text here...."
+            android:hint="@string/reminder_text"
             android:inputType="textMultiLine"
             android:paddingBottom="5dp"
             android:paddingTop="5dp" />
@@ -117,7 +117,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonshape"
             android:gravity="center"
-            android:text="Set Reminder"
+            android:text="@string/set_reminder_button"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 

@@ -23,6 +23,7 @@ public class ContactDetails {
     Context context;
     Cursor cursor = null;
     ArrayList<Contacts> mcontactList = new ArrayList<>();
+
     String[] projection = new String[]{
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER,
@@ -35,10 +36,7 @@ public class ContactDetails {
 
     }
 
-
     public ArrayList<Contacts> getContactDetails() {
-
-
 
 
         try {
@@ -67,6 +65,7 @@ public class ContactDetails {
                     }
                 }
             } finally {
+
                 cursor.close();
             }
 

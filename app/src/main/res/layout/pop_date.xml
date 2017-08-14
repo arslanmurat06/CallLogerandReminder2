@@ -16,6 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/buttonshape"
-        android:text="Set Date"
+        android:text="@string/pop_date_button"
         android:textColor="@android:color/white" />
 </LinearLayout>

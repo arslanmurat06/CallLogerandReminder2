@@ -53,19 +53,21 @@ public class ReminderNotification {
         Intent in = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+numara));
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, in, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                R.mipmap.callogger_icon);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
+                .setLargeIcon(icon)
                 .setDefaults(Notification.DEFAULT_ALL)
 
                 // Set required fields, including the small icon, the
                 // notification title, and text.
                 .setSmallIcon(R.drawable.ic_stat_reminder)
-                .setContentTitle("Reminder for calling "+isim+" / "+numara)
-                .setContentText("Your reminder message is: "+mesaj)
+                .setContentTitle(context.getString(R.string.reminder_notify_title)+isim+" / "+numara)
+                .setContentText(context.getString(R.string.reminder_notify_text)+mesaj)
 
                 // All fields below this line are optional.
 
@@ -104,9 +106,9 @@ public class ReminderNotification {
                 // Show expanded text content on devices running Android 4.1 or
                 // later.
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Reminder message: "+mesaj)
-                        .setBigContentTitle("Call reminder for: "+isim+" / "+numara)
-                        .setSummaryText("Call reminder notification"))
+                        .bigText(context.getString(R.string.reminder_notify_big_text)+mesaj)
+                        .setBigContentTitle(context.getString(R.string.reminder_notify_big_text_title)+isim+" / "+numara)
+                        .setSummaryText(context.getString(R.string.reminder_notify_big_text_summary)))
 
                 // Example additional actions for this notification. These will
                 // only show on devices running Android 4.1 or later, so you

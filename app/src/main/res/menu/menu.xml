@@ -20,7 +20,7 @@
         android:id="@+id/share"
         android:icon="@android:drawable/ic_menu_search"
         android:tint="@color/white"
-        android:title="Share with friends"
+        android:title="@string/settings_share"
         app:showAsAction="never|collapseActionView" />
 
 
@@ -28,21 +28,21 @@
         android:id="@+id/rate"
         android:icon="@android:drawable/ic_menu_search"
         android:tint="@color/white"
-        android:title="Rate app"
+        android:title="@string/settings_rate"
         app:showAsAction="never|collapseActionView" />
 
     <item
         android:id="@+id/about"
         android:icon="@android:drawable/ic_menu_search"
         android:tint="@color/white"
-        android:title="About"
+        android:title="@string/settings_about"
         app:showAsAction="never|collapseActionView" />
 
 
     <item
         android:id="@+id/exit"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        android:title="Exit"
+        android:title="@string/settings_cikis"
         app:showAsAction="never|collapseActionView"
         android:tint="@color/white"/>
 

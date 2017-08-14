@@ -3,10 +3,8 @@ package com.marstech.app.calllogerandreminder.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,11 +18,8 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.marstech.app.calllogerandreminder.BildirimFragment;
 import com.marstech.app.calllogerandreminder.Database.DBManagerReminder;
-import com.marstech.app.calllogerandreminder.Model.CalLog;
 import com.marstech.app.calllogerandreminder.Model.Contacts;
 import com.marstech.app.calllogerandreminder.R;
-import com.marstech.app.calllogerandreminder.Statistics;
-import com.marstech.app.calllogerandreminder.StatisticsFragment;
 
 import java.util.ArrayList;
 
@@ -51,7 +46,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         this.flag=flag;
 
     }
-
 
 
     @Override
@@ -83,8 +77,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                //     bundle.putString("tipi",tiklaninanKayit.getCagriTipi());
                     bildirimFragment.setArguments(bundle);
 
-
-
 //herhangi bir cardview tıklanınca Statistics fragmentının açılmasını sağladık
                     android.app.FragmentManager manager = ((Activity) context).getFragmentManager();
 
@@ -97,14 +89,12 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                 }
             });}
 
-
     }
 
     @Override
     public int getItemCount() {
         return mDataList.size();
     }
-
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -126,10 +116,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
             imgIsReminderSet=(ImageView)itemView.findViewById(R.id.imgIsReminderSet) ;
             rootCardView=(CardView) itemView.findViewById(R.id.rootCardView);
             imgCall=(ImageView) itemView.findViewById(R.id.imgCall);
-
-
-
-
 
         }
 

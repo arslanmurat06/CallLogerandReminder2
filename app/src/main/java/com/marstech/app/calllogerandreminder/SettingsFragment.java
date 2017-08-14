@@ -37,7 +37,7 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle("Settings");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.settings_action_bar));
     }
 
     @Override

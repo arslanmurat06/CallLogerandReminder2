@@ -2,7 +2,6 @@ package com.marstech.app.calllogerandreminder.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.marstech.app.calllogerandreminder.Model.CalLog;
 import com.marstech.app.calllogerandreminder.R;
-import com.marstech.app.calllogerandreminder.Statistics;
 
 import java.util.ArrayList;
 
@@ -60,25 +57,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         final CalLog tiklaninanKayit=mDataList.get(position);
         holder.setData (tiklaninanKayit,position);
-
-        if(!flag.equals("sts")) {
-
-        holder.rootCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-              Intent i = new Intent(v.getContext(), Statistics.class);
-                i.putExtra("isim",tiklaninanKayit.getCagriIsim()) ;
-                i.putExtra("numara",tiklaninanKayit.getCagriNumara());
-                i.putExtra("tipi",tiklaninanKayit.getCagriTipi());
-
-                v.getContext().startActivity(i);
-
-
-            }
-        });}
-
 
     }
 
@@ -124,7 +102,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 if(tiklaninanKayit.getCagriIsim()==null)
 
                 {
-                    tiklaninanKayit.setCagriIsim("İsimsiz");
+                    tiklaninanKayit.setCagriIsim(context.getString(R.string.unknown_record));
 
                 }
 
@@ -142,11 +120,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             if(saat!=0)
             {
-                this.cagriSure.setText(saat+"h:"+dakika+"m "+artanSaniye+"s");
+                this.cagriSure.setText(saat+context.getString(R.string.hour)+" "+dakika+context.getString(R.string.minutes)+" "+artanSaniye+"s");
             }
             else
                 {
-                    this.cagriSure.setText(dakika+"m "+artanSaniye+"s");
+                    this.cagriSure.setText(dakika+context.getString(R.string.minutes)+" "+artanSaniye+"s");
                 }
 
 

@@ -148,12 +148,12 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
             imgReminder.setColorFilter(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
 
             if(tiklaninanKayit.getReminderDurum().equals("aktif")) {
-                this.reminderDurum.setText("Aktif");
+                this.reminderDurum.setText(context.getString(R.string.reminder_active));
 
             }
 
             else {
-                this.reminderDurum.setText("Pasif");
+                this.reminderDurum.setText(R.string.reminder_passive);
                 this.reminderDurum.setTextColor(Color.RED);
 
             }
@@ -164,9 +164,9 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
 
                     AlertDialog.Builder dialog = new AlertDialog.Builder(context);
                     dialog.setCancelable(false);
-                    dialog.setTitle("Deleting Reminder");
-                    dialog.setMessage("Are you sure* you want to delete this reminder?" );
-                    dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    dialog.setTitle(R.string.reminder_delete_title);
+                    dialog.setMessage(R.string.reminder_delete_message );
+                    dialog.setPositiveButton(R.string.reminder_delete_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
 
@@ -194,11 +194,11 @@ public class MyAdapterReminder  extends RecyclerView.Adapter<MyAdapterReminder.M
 
 
 
-                            Toast.makeText(context,"Reminder removed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.reminder_deleted_message,Toast.LENGTH_SHORT).show();
 
                         }
                     })
-                            .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(context.getString(R.string.action_cancel), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 

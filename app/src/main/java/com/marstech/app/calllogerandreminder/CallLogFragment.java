@@ -67,7 +67,7 @@ public class CallLogFragment extends Fragment implements SearchView.OnQueryTextL
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle("Call Logs");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.callog_action_bar));
 
     }
 

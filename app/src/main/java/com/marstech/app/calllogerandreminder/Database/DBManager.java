@@ -2,6 +2,7 @@ package com.marstech.app.calllogerandreminder.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +12,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.widget.Toast;
 
 import com.marstech.app.calllogerandreminder.Model.CalLog;
+import com.marstech.app.calllogerandreminder.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,8 @@ public class DBManager {
     public static String COLSURE="cagriSure";
     public static String COLTIP="cagriTipi";
     public static String COLBILDIRIM="bildirim";
+    public static String COLTAMTARIH="cagriTamTarih";
+    Context context;
 
 
 
@@ -45,7 +49,9 @@ public class DBManager {
             + COLSAAT +" TEXT,"
             + COLTIP +" TEXT,"
             + COLSURE +" TEXT,"
+            + COLTAMTARIH +" TEXT,"
             + COLBILDIRIM +" TEXT);";
+
 
     static class DatabaseHelperUser extends SQLiteOpenHelper {
 
@@ -77,6 +83,7 @@ public class DBManager {
 
         DatabaseHelperUser db= new DatabaseHelperUser(context);
         sqlDB=db.getWritableDatabase();
+        this.context=context;
     }
 
 
@@ -145,17 +152,17 @@ public class DBManager {
 
         if(CallIsım==null && CallNumara==null)//null ise Callogfragmettan geliyor değilse statisticfragmenttan geliyor
         {
-             cursor=query(null,null,null,DBManager.COLTARIH+" DESC");
+             cursor=query(null,null,null,DBManager.COLTAMTARIH+" DESC");
         }
 
 
-        else if(CallIsım.equals("İsimsiz") ) {
+        else if(CallIsım.equals(context.getResources().getString(R.string.unknown_record)) ) {
 
             String selection=DBManager.COLNUMARA+ " =?";
             String[] selectionArgs = { CallNumara };
 
 
-            cursor=query(null,selection,selectionArgs,DBManager.COLTARIH+" DESC");
+            cursor=query(null,selection,selectionArgs,DBManager.COLTAMTARIH+" DESC");
 
         }
 
@@ -164,7 +171,7 @@ public class DBManager {
             String[] selectionArgs = { CallIsım };
 
 
-            cursor=query(null,selection,selectionArgs,DBManager.COLTARIH+" DESC");
+            cursor=query(null,selection,selectionArgs,DBManager.COLTAMTARIH+" DESC");
         }
 
        if(cursor.moveToFirst()){
@@ -180,6 +187,7 @@ public class DBManager {
                cagriKaydi.setCagriTipi(cursor.getString(cursor.getColumnIndex(DBManager.COLTIP)));
                cagriKaydi.setCagriTarih(cursor.getString(cursor.getColumnIndex(DBManager.COLTARIH)));
                cagriKaydi.setCagriSaat(cursor.getString(cursor.getColumnIndex(DBManager.COLSAAT)));
+               cagriKaydi.setCagriZaman(cursor.getString(cursor.getColumnIndex(DBManager.COLTAMTARIH)));
 
                mDataList.add(cagriKaydi);
 
@@ -196,7 +204,7 @@ public int count(String callNumber,String callIsım,String callType) {
     String selection;
     String[] selectionArgs;
 
-    if(callIsım.equals("İsimsiz"))
+    if(callIsım.equals(context.getResources().getString(R.string.unknown_record)))
     {
     selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
     selectionArgs =new String[] { callNumber,callType };
@@ -225,7 +233,7 @@ public int sum(String callNumber,String callIsim,String callType) {
     String[] selectionArgs;
 
 
-    if(callIsim.equals("İsimsiz")) {
+    if(callIsim.equals(context.getResources().getString(R.string.unknown_record))) {
 
       selection=DBManager.COLNUMARA + " =?" + " AND " + DBManager.COLTIP + " =?";
       selectionArgs = new String[] { callNumber,callType };

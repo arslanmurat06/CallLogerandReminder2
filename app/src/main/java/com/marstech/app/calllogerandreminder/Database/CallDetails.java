@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 
+import com.marstech.app.calllogerandreminder.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,6 +25,7 @@ public class CallDetails {
     DBManager dbManager;
     SimpleDateFormat formatterTarih = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat formatterSaat = new SimpleDateFormat("kk:mm:ss");
+    SimpleDateFormat formatterZaman=new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 
         public  CallDetails (Context context,DBManager dbManager) {
 
@@ -76,12 +79,13 @@ public class CallDetails {
                    }
 
                    else {
-                       cagriIsım = "İsimsiz";
+                       cagriIsım = context.getString(R.string.unknown_record);
                    }
                 }
 
                 String formatTarih = formatterTarih.format(cagriZamani);
                 String formatSaat = formatterSaat.format(cagriZamani);
+                String formatZaman=formatterZaman.format(cagriZamani);
 
                 if(! dbManager.Exists(formatSaat,formatTarih)) {
 
@@ -92,6 +96,7 @@ public class CallDetails {
                     values.put(DBManager.COLTIP, dir);
                     values.put(DBManager.COLTARIH, formatTarih);
                     values.put(DBManager.COLSAAT, formatSaat);
+                    values.put(DBManager.COLTAMTARIH,formatZaman);
                     values.put(DBManager.COLBILDIRIM, "Yok");
 
 

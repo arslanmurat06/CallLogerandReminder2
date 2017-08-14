@@ -1,5 +1,6 @@
 package com.marstech.app.calllogerandreminder;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,10 +29,10 @@ public class AlertDialogActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
-                .setTitle("Call Reminder - "+isim+" / "+numara)
-                .setMessage("Your reminder message is; "+mesaj)
+                .setTitle(getString(R.string.reminder_alert_title)+isim+" / "+numara)
+                .setMessage(getString(R.string.reminder_alert_message)+mesaj)
                 .setCancelable(false)
-                .setPositiveButton("Call Now", new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.reminder_alert_button, new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
@@ -40,7 +41,7 @@ public class AlertDialogActivity extends AppCompatActivity {
                         try {
                             startActivity(in);
                             finish();
-                        } catch (android.content.ActivityNotFoundException ex) {
+                        } catch (ActivityNotFoundException ex) {
                             Toast.makeText(getApplicationContext(), "Could not find an activity to place the call.", Toast.LENGTH_SHORT).show();
                         }
 

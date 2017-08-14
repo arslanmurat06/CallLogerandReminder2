@@ -153,13 +153,13 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
 
                 {
 
-                    Toast.makeText(getActivity(), "Lütfen bir tarih ve saat seçin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.bildirim_setreminder_warn, Toast.LENGTH_SHORT).show();
 
                 }
 
                 else if(datetime.getTimeInMillis() <= c.getTimeInMillis()){
 
-                    Toast.makeText(getActivity(), "Geçmiş zamanaa alarm kurulamaz", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.bildirim_past_time_warn, Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -167,7 +167,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
 
 
 
-                Toast.makeText(getActivity(), "Alarm :"+reminderDateandTime+" tarihe "+numara+" için kuruldu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.bildirim_alarm)+reminderDateandTime+getString(R.string.bildirim_tarihe)+numara+getString(R.string.bildirim_icin_kuruldu), Toast.LENGTH_SHORT).show();
 
                     reminderMesaj=edtReminderMesaj.getText().toString();
 
@@ -203,7 +203,7 @@ public class BildirimFragment extends Fragment implements View.OnClickListener {
                         values.put(DBManagerReminder.COLBILDIRIMZAMAN, reminderDateandTime);
                         values.put(DBManagerReminder.COLBILDIRIMDURUM, "aktif");
 
-                        Toast.makeText(getActivity(), isim+"'in mesajı "+reminderMesaj+" olarak değiştirildi", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), isim+"'in mesajı "+reminderMesaj+" olarak değiştirildi", Toast.LENGTH_SHORT).show();
 
                         dbManagerReminder.update(numara,values);
 

@@ -106,29 +106,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 Intent intentNotify;
                 if(ShredRef.getBoolean("switchNotify",false)) {
 
-                 /*   NotificationManager mNotifyMgr =
-                            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                            .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
-                            .setContentTitle("Call Reminder")
-                            .setContentText(mesaj)
-                            .setOngoing(false)
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            .setAutoCancel(true);
-                    intentNotify = new Intent(context, MainActivity.class);
-                    PendingIntent pendingIntent =
-                            PendingIntent.getActivity(
-                                    context,
-                                    0,
-                                    intentNotify,
-                                    PendingIntent.FLAG_ONE_SHOT
-                            );
-                    // example for blinking LED
-                    mBuilder.setLights(0xFFb71c1c, 1000, 2000);
-                    mBuilder.setContentIntent(pendingIntent);
-                    mNotifyMgr.notify(12345, mBuilder.build());*/
-
                     ReminderNotification reminderNotification=new ReminderNotification();
                     reminderNotification.notify(context,isim,numara,mesaj,count);
                     count++;
